@@ -9,7 +9,7 @@ function kep2cart({a, e, i, ω, Ω, ν, GM}) {
   const cosE = o_x / a + e;
   const f = sqrt(a * GM) / r;
   const g = sqrt(1 - pow(e, 2));
-  const velocity = get_velocity({f, sinE, g, cosE, P, Q});
+  const velocity = get_velocity(f, sinE, g, cosE, P, Q);
 
   return {
     r: position,
