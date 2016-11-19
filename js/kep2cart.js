@@ -43,12 +43,12 @@ function get_position(o_x, o_y, P, Q) {
   const x = o_x * P[0] + o_y * Q[0];
   const y = o_x * P[1] + o_y * Q[1];
   const z = o_x * P[2] + o_y * Q[2];
-  return {x, y, z};
+  return [x, y, z];
 }
 
 function get_velocity(f, sinE, g, cosE, P, Q) {
   const u = -f * sinE * P[0] + f * g * cosE * Q[0];
   const v = -f * sinE * P[1] + f * g * cosE * Q[1];
   const w = -f * sinE * P[2] + f * g * cosE * Q[2];
-  return {u, v, w};
+  return [u, v, w];
 }
