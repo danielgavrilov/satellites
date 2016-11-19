@@ -1,5 +1,3 @@
-const [a, e, i, ω, Ω, ν] = [0, 1, 2, 3, 4, 5];
-
 function normalise_angle(x) {
   x = x % (2*π);
   if (x < 0) x += 2*π;
