@@ -1,10 +1,10 @@
 function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 
-  const {P, Q} = get_gaussian({ω, Ω, i});
+  const {P, Q} = get_gaussian(ω, Ω, i);
   const p = a / (1 - pow(e, 2));
   const r = p / (1 + e * cos(ν));
-  const {o_x, o_y} = get_coords({r, ν});
-  const position = get_position({o_x, o_y, P, Q});
+  const {o_x, o_y} = get_coords(r, ν);
+  const position = get_position(o_x, o_y, P, Q);
   const sinE = o_y / a * sqrt(1 - pow(e, 2));
   const cosE = o_x / a + e;
   const f = sqrt(a * GM) / r;
@@ -32,21 +32,21 @@ function get_gaussian({ω, Ω, i}) {
 }
 
 // in orbital
-function get_coords({r, ν}) {
+function get_coords(r, ν) {
   const o_x = r * cos(ν);
   const o_y = r * sin(ν);
   return {o_x, o_y};
 }
 
 // turns orbital to ECI
-function get_position({o_x, o_y, P, Q}) {
+function get_position(o_x, o_y, P, Q) {
   const x = o_x * P[0] + o_y * Q[0];
   const y = o_x * P[1] + o_y * Q[1];
   const z = o_x * P[2] + o_y * Q[2];
   return {x, y, z};
 }
 
-function get_velocity({f, sinE, g, cosE, P, Q}) {
+function get_velocity(f, sinE, g, cosE, P, Q) {
   const u = -f * sinE * P[0] + f * g * cosE * Q[0];
   const v = -f * sinE * P[1] + f * g * cosE * Q[1];
   const w = -f * sinE * P[2] + f * g * cosE * Q[2];
