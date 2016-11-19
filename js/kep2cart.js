@@ -1,8 +1,8 @@
 function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 
   const {P, Q} = get_gaussian({ω, Ω, i});
-  const p = get_rectum({a, e});
-  const r = get_radius({p, e, ν});
+  const p = a / (1 - pow(e, 2));
+  const r = p / (1 + e * cos(ν));
   const {o_x, o_y} = get_coords({r, ν});
   const position = get_position({o_x, o_y, P, Q});
   const sinE = o_y / a * sqrt(1 - pow(e, 2));
@@ -29,14 +29,6 @@ function get_gaussian({ω, Ω, i}) {
     sin(i) * cos(ω)
   ];
   return {P, Q};
-}
-
-function get_rectum({a, e}) {
-  return a / (1 - pow(e, 2));
-}
-
-function get_radius({p, e, ν}) {
-  return p / (1 + e * cos(ν));
 }
 
 // in orbital

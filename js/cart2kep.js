@@ -4,13 +4,13 @@ function cart2kep({r, v, GM}) {
     const i = get_i(h);
     const Ω = get_Ω(h);
     const a = get_a(r, v, GM);
-    const p = get_p(h, GM);
-    const e = get_e(p, a);
-    const n = get_n(a, GM);
+    const p = pow(norm(h), 2) / GM;
+    const e = sqrt(1 - (p/a));
+    const n = sqrt(GM / pow(a, 3));
     const E = get_E(r, v, a, n);
     const ν = get_ν(e, E);
     const u = get_u(r, i, Ω);
-    const ω = get_ω(u, ν);
+    const ω = u - ν;
 
     return {a, e, i, ω, Ω, ν};
 }
@@ -50,18 +50,6 @@ function get_a(r, v, GM) {
     return 1 / temp;
 }
 
-function get_p(h, GM) {
-    return pow(norm(h), 2) / GM;
-}
-
-function get_e(p, a) {
-    return sqrt(1 - (p/a));
-}
-
-function get_n(a, GM) {
-    return sqrt(GM / pow(a, 3));
-}
-
 function get_E(r, v, a, n) {
     return atan2(
       dot(r, v) / (pow(a, 2) * n),
@@ -75,8 +63,4 @@ function get_u(r, i, Ω) {
       z / sin(i),
       x * cos(Ω) + y * sin(Ω)
     );
-}
-
-function get_ω(u, ν) {
-    return u - ν;
 }
