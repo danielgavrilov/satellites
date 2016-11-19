@@ -17,7 +17,7 @@ function kep2cart({a, e, i, ω, Ω, ν, GM}) {
   }
 }
 
-function get_gaussian({ω, Ω, i}) {
+function get_gaussian(ω, Ω, i) {
   const P = [
     cos(Ω) * cos(ω) - sin(Ω) * cos(i) * sin(ω),
     sin(Ω) * cos(ω) + cos(Ω) * cos(i) * sin(ω),
