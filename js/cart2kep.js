@@ -1,35 +1,28 @@
-function cart2kep({ r, v, GM }) {
+function cart2kep({r, v, GM}) {
 
     const h = cross(r, v);
-    const i = calc_i(h);
-    const Ω = calc_Ω(h);
-    const a = calc_a(r, v, GM);
-    const p = calc_p(h, GM);
-    const e = calc_e(p, a);
-    const n = calc_n(a, GM);
-    const E = calc_E(r, v, a, n);
-    const ν = calc_ν(e, E);
-    const u = calc_u(r, i, Ω);
-    const ω = calc_ω(u, ν);
+    const i = get_i(h);
+    const Ω = get_Ω(h);
+    const a = get_a(r, v, GM);
+    const p = get_p(h, GM);
+    const e = get_e(p, a);
+    const n = get_n(a, GM);
+    const E = get_E(r, v, a, n);
+    const ν = get_ν(e, E);
+    const u = get_u(r, i, Ω);
+    const ω = get_ω(u, ν);
 
-    return [
-        a,
-        e,
-        i,
-        ω,
-        Ω,
-        ν
-    ];
+    return {a, e, i, ω, Ω, ν};
 }
 
-function calc_ν(e, E) {
+function get_ν(e, E) {
     return atan2(
       sqrt(1 - pow(e,2)) * sin(E),
       cos(E) - e
     );
 }
 
-function calc_i(h) {
+function get_i(h) {
 
     hMag = norm(h);
     Wx = h[0] / hMag;
@@ -42,14 +35,14 @@ function calc_i(h) {
     );
 }
 
-function calc_Ω(h) {
+function get_Ω(h) {
     hMag = norm(h);
     Wx = h[0] / hMag;
     Wy = h[1] / hMag;
     return atan2(Wx, -Wy);
 }
 
-function calc_a(r, v, GM) {
+function get_a(r, v, GM) {
     temp = (2 / norm(r)) - (pow(norm(v), 2) / GM);
     if (abs(temp) < 0.000001) {
         console.log("shit");
@@ -57,26 +50,26 @@ function calc_a(r, v, GM) {
     return 1 / temp;
 }
 
-function calc_p(h, GM) {
+function get_p(h, GM) {
     return pow(norm(h), 2) / GM;
 }
 
-function calc_e(p, a) {
+function get_e(p, a) {
     return sqrt(1 - (p/a));
 }
 
-function calc_n(a, GM) {
+function get_n(a, GM) {
     return sqrt(GM / pow(a, 3));
 }
 
-function calc_E(r, v, a, n) {
+function get_E(r, v, a, n) {
     return atan2(
       dot(r, v) / (pow(a, 2) * n),
       1 - norm(r) / a
     );
 }
 
-function calc_u(r, i, Ω) {
+function get_u(r, i, Ω) {
     [x,y,z] = r;
     return atan2(
       z / sin(i),
@@ -84,6 +77,6 @@ function calc_u(r, i, Ω) {
     );
 }
 
-function calc_ω(u, ν) {
+function get_ω(u, ν) {
     return u - ν;
 }
