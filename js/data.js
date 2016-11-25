@@ -4,6 +4,8 @@ Data for testing conversion of orbital state vectors from Cartesian vectors to K
 
 */
 
+const GM = 398600.4415;
+
 const data = {
 
   // 1) Jason-2 Low Earth orbiter altimetry satellite, orbit data from precise orbit provider

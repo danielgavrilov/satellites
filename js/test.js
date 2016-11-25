@@ -40,3 +40,32 @@ function test_cart2kep(data) {
   }
 
 }
+
+function test_kep2cart(data) {
+
+  let errors = 0;
+
+  _.forEach(data, function(d, name) {
+
+    const actual = kep2cart(d.keplerian);
+    const expected = { r:d.r, v:d.v};
+
+    _.keys(expected).forEach(function(key) {
+      _.zip(expected[key], actual[key]).map(function([x,y]) {
+        if (!equals(x, y)) {
+          console.error("failed for key: " + key, expected[key], actual[key]);
+          errors++;
+        }
+      });
+    });
+
+  });
+
+  if (errors === 0) {
+    console.log("All passed.");
+  } else {
+    console.log(errors + " errors found");
+  }
+
+}
+

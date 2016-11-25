@@ -1,4 +1,4 @@
-function kep2cart({a, e, i, ω, Ω, ν, GM}) {
+function kep2cart({a, e, i, ω, Ω, ν}) {
 
   const {P, Q} = get_gaussian(ω, Ω, i);
   const p = a * (1 - pow(e, 2));
