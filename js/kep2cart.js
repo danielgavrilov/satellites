@@ -1,7 +1,7 @@
 function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 
   const {P, Q} = get_gaussian(ω, Ω, i);
-  const p = a / (1 - pow(e, 2));
+  const p = a * (1 - pow(e, 2));
   const r = p / (1 + e * cos(ν));
   const {o_x, o_y} = get_coords(r, ν);
   const position = get_position(o_x, o_y, P, Q);
