@@ -5,9 +5,9 @@ function normalise_angle(x) {
 }
 
 function normalise_keplerian(k) {
-  k[ω] = normalise_angle(k[ω]);
-  k[Ω] = normalise_angle(k[Ω]);
-  k[ν] = normalise_angle(k[ν]);
+  k.ω = normalise_angle(k.ω);
+  k.Ω = normalise_angle(k.Ω);
+  k.ν = normalise_angle(k.ν);
   return k;
 }
 
@@ -17,17 +17,26 @@ function equals(x, y) {
 
 function test_cart2kep(data) {
 
+  let errors = 0;
+
   _.forEach(data, function(d, name) {
 
     const actual = normalise_keplerian(cart2kep(d));
     const expected = normalise_keplerian(d.keplerian);
 
-    _.zip(actual, expected).forEach(function([x, y]) {
-      if (!equals(x,y)) {
-        console.error(actual, expected);
+    _.keys(expected).forEach(function(key) {
+      if (!equals(expected[key], actual[key])) {
+        console.error("failed for key: " + key, expected[key], actual[key]);
+        errors++;
       }
     });
 
   });
+
+  if (errors === 0) {
+    console.log("All passed.");
+  } else {
+    console.log(errors + " errors found");
+  }
 
 }
