@@ -18,10 +18,10 @@ function init() {
 
 	var geometry   = new THREE.SphereGeometry(0.5, 32, 32)
 	var material  = new THREE.MeshPhongMaterial({'reflectivity': 0})
-	material.map = new THREE.TextureLoader().load('/images/earthmap1k.jpg')
-	material.bumpMap = new THREE.TextureLoader().load('/images/earthbump1k.jpg')
+	material.map = new THREE.TextureLoader().load('images/earthmap1k.jpg')
+	material.bumpMap = new THREE.TextureLoader().load('images/earthbump1k.jpg')
 	material.bumpScale = 0.05
-	material.specularMap = new THREE.TextureLoader().load('/images/earthspec1k.jpg')
+	material.specularMap = new THREE.TextureLoader().load('images/earthspec1k.jpg')
 	material.specular = new THREE.Color("grey")
 	var earthMesh = new THREE.Mesh(geometry, material)
 	scene.add(earthMesh)
