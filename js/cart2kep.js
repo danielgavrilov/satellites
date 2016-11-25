@@ -1,4 +1,4 @@
-function cart2kep({r, v, GM}) {
+function cart2kep({r, v}) {
 
     const h = cross(r, v);
     const i = get_i(h);
