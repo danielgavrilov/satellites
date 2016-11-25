@@ -41,7 +41,7 @@ function init() {
 	controls = new THREE.OrbitControls( camera, renderer.domElement );
 	controls.maxDistance = 100;
 	controls.enableDamping = true;
-	controls.dampingFactor = 0.25;
+	controls.dampingFactor = 0.8;
 
 	stats = new Stats();
 	document.body.appendChild( stats.dom );
