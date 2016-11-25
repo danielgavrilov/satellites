@@ -51,10 +51,12 @@ function test_kep2cart(data) {
     const expected = { r:d.r, v:d.v};
 
     _.keys(expected).forEach(function(key) {
-      if (!equals(expected[key], actual[key])) {
-        console.error("failed for key: " + key, expected[key], actual[key]);
-        errors++;
-      }
+      _.zip(expected[key], actual[key]).map(function([x,y]) {
+        if (!equals(x, y)) {
+          console.error("failed for key: " + key, expected[key], actual[key]);
+          errors++;
+        }
+      });
     });
 
   });
