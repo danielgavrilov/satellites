@@ -1,6 +1,6 @@
 /*
 
-Data for testing conversion of orbital state vectors from Cartesian vectors to Keplerian elements (car2kep)
+Data for testing conversion of orbital state vectors from Cartesian vectors to Keplerian elements (cart2kep)
 
 */
 

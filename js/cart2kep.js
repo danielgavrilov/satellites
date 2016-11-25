@@ -24,10 +24,10 @@ function get_ν(e, E) {
 
 function get_i(h) {
 
-    hMag = norm(h);
-    Wx = h[0] / hMag;
-    Wy = h[1] / hMag;
-    Wz = h[2] / hMag;
+    const hMag = norm(h);
+    const Wx = h[0] / hMag;
+    const Wy = h[1] / hMag;
+    const Wz = h[2] / hMag;
 
     return atan2(
       sqrt(pow(Wx, 2) + pow(Wy,2)),
@@ -36,14 +36,14 @@ function get_i(h) {
 }
 
 function get_Ω(h) {
-    hMag = norm(h);
-    Wx = h[0] / hMag;
-    Wy = h[1] / hMag;
+    const hMag = norm(h);
+    const Wx = h[0] / hMag;
+    const Wy = h[1] / hMag;
     return atan2(Wx, -Wy);
 }
 
 function get_a(r, v, GM) {
-    temp = (2 / norm(r)) - (pow(norm(v), 2) / GM);
+    const temp = (2 / norm(r)) - (pow(norm(v), 2) / GM);
     if (abs(temp) < 0.000001) {
         console.log("shit");
     }
@@ -58,7 +58,7 @@ function get_E(r, v, a, n) {
 }
 
 function get_u(r, i, Ω) {
-    [x,y,z] = r;
+    const [x,y,z] = r;
     return atan2(
       z / sin(i),
       x * cos(Ω) + y * sin(Ω)
