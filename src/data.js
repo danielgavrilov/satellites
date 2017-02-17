@@ -4,6 +4,12 @@ Data for testing conversion of orbital state vectors from Cartesian vectors to K
 
 */
 
+import moment from "moment";
+
+function date(string) {
+  return moment(string, "DD/MM/YYYY, HH:mm:ss.SSSSSS").toDate();
+}
+
 export default {
 
   // 1) Jason-2 Low Earth orbiter altimetry satellite, orbit data from precise orbit provider
@@ -25,7 +31,7 @@ export default {
       ]
     },
 
-    time: "16/12/2015, 09:00:32.184000",
+    time: date("16/12/2015, 09:00:32.184000"),
 
     keplerian: {
       a: 7719.637185686771549,
@@ -57,7 +63,7 @@ export default {
       ]
     },
 
-    time: "29/02/2004, 21:00:51.184000",
+    time: date("29/02/2004, 21:00:51.184000"),
 
     keplerian: {
       a: 26559.45536811388409,
@@ -89,7 +95,7 @@ export default {
       ]
     },
 
-    time: "02/04/2014, 04:00:51.184000",
+    time: date("02/04/2014, 04:00:51.184000"),
 
     keplerian: {
       a: 29601.04674412769265,
