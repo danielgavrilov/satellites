@@ -18,11 +18,10 @@ export function eci_to_ecef(position, date) {
   return rotate_z(position, Θ);
 }
 
-export function ecef_to_topocentric(position) {
-  const [x, y, z] = position;
+export function ecef_to_topocentric([x, y, z]) {
   const λ = atan2(y, x);
   const φ = atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
-  const h = norm(position) - R_avg;
+  const h = norm([x, y, z]) - R_avg;
   return { λ, φ, h };
 }
 
