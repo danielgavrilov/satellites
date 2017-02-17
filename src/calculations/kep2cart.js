@@ -1,6 +1,4 @@
-import {add, multiply} from "mathjs";
-
-import {sin, cos, pow, sqrt} from "../utils";
+import {sin, cos, pow, sqrt, add, multiply} from "mathjs";
 
 export default function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 

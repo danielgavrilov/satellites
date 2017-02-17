@@ -1,6 +1,6 @@
-import {cross, dot, norm, divide} from "mathjs";
+import {sin, cos, pow, sqrt, atan2, abs, cross, dot, norm, divide} from "mathjs";
 
-import {sin, cos, pow, sqrt, atan2, abs, normalise_angle} from "../utils";
+import {normalise_angle} from "../utils";
 
 export default function cart2kep({r, v, GM}) {
 
