@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Balls</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script>
+      if (window.System) {
+        System.import('src/main');
+      } else {
+        document.write("<script src='build.js'><\/script>");
+      }
+    </script>
+
+  </body>
+</html>
