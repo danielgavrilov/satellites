@@ -18,9 +18,9 @@ export default function propagate_kepler({r, v, t, GM}) {
   const E0 = atan2(sinE0, cosE0);
   const M0 = E0 - e * sinE0;
 
-  return function(dt) {
+  return function(date) {
 
-    // const dt = moment(time).subtract(t);
+    const dt = ((+date) - (+t)) / 1000;
 
     const Mi = M0 + n * dt;
     const Ei = solve_kepler(Mi, e);
@@ -30,11 +30,10 @@ export default function propagate_kepler({r, v, t, GM}) {
 
     const x = a * (cosEi - e);
     const y = a * sqrt(1 - pow(e, 2)) * sinEi;
+    const r = a * (1 - e * cosEi);
 
     const {P, Q} = get_gaussian(ω, Ω, i);
     const position = get_eci_position(x, y, P, Q);
-
-    const r = a * (1 - e * cosEi);
     const velocity = get_eci_velocity(a, r, e, sinEi, cosEi, P, Q, GM);
 
     return {
