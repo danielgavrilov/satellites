@@ -1,7 +1,7 @@
 import _ from "lodash";
-import {norm} from "math";
+import {atan2, norm} from "mathjs";
 
-import {atan2, deg_to_rad} from "./utils";
+import {deg_to_rad} from "./utils";
 import {date_to_j2000_seconds} from "./time";
 
 const R_equatorial = 6378.137;

@@ -1,7 +1,8 @@
 import _ from "lodash";
 import moment from "moment";
+import {sin, cos, sqrt, pow, atan2, norm} from "mathjs";
 
-import {sin, cos, sqrt, pow, atan2, norm, J2000} from "../utils";
+import {J2000} from "../utils";
 import cart2kep from "./cart2kep";
 import {get_gaussian, get_eci_position, get_eci_velocity} from "./kep2cart";
 import solve_kepler from "./solve-kepler";
