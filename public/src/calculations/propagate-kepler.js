@@ -14,11 +14,14 @@ export default function propagate_kepler({r, v, time, GM}) {
   }
 
   const {a, e, i, ω, Ω, ν} = cart2kep({r, v, GM});
+  const { P, Q } = get_gaussian(ω, Ω, i);
+  const SQRT_A_TIMES_E_SQUARED = a * sqrt(1 - pow(e, 2));
+
   const n = sqrt(GM / pow(a, 3));
 
   const rmag = norm(r);
 
-  const sinE0 = (rmag * sin(ν)) / (a * sqrt(1 - pow(e, 2)));
+  const sinE0 = (rmag * sin(ν)) / (SQRT_A_TIMES_E_SQUARED);
   const cosE0 = (rmag * cos(ν)) / a + e;
 
   const E0 = atan2(sinE0, cosE0);
@@ -35,10 +38,9 @@ export default function propagate_kepler({r, v, time, GM}) {
     const cosEi = cos(Ei);
 
     const x = a * (cosEi - e);
-    const y = a * sqrt(1 - pow(e, 2)) * sinEi;
+    const y = SQRT_A_TIMES_E_SQUARED * sinEi;
     const r = a * (1 - e * cosEi);
 
-    const { P, Q } = get_gaussian(ω, Ω, i);
     const position = get_eci_position(x, y, P, Q);
     const velocity = get_eci_velocity(a, r, e, sinEi, cosEi, P, Q, GM);
 
