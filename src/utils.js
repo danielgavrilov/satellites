@@ -36,3 +36,7 @@ export function rad_to_longitude(radians) {
     return degrees;
   }
 }
+
+export function date_to_j2000_seconds(date) {
+  return ((+date) - (+J2000)) / 1000;
+}
