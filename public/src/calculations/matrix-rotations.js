@@ -1,4 +1,4 @@
-import {sin, cos, multiply} from "mathjs";
+import { sin, cos, multiply } from "mathjs";
 
 export function rotate_x_matrix(angle) {
   const s = sin(angle);

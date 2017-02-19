@@ -3,10 +3,10 @@ import kep2cart from "./calculations/kep2cart";
 import cart2kep from "./calculations/cart2kep";
 import propagate_kepler from "./calculations/propagate-kepler";
 
-const {keplerian, cartesian, GM, time} = data["jason-2"];
+const { keplerian, cartesian, GM, time } = data["jason-2"];
 
-const {a, e, i, ω, Ω, ν} = keplerian;
-const {r, v} = cartesian;
+const { a, e, i, ω, Ω, ν } = keplerian;
+const { r, v } = cartesian;
 
 // console.log(kep2cart({a, e, i, ω, Ω, ν, GM}));
 // console.log(cart2kep({r, v, GM}));
