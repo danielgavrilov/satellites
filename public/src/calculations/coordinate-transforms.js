@@ -1,8 +1,7 @@
 import _ from "lodash";
 import { sin, cos, sqrt, pow, atan2, norm } from "mathjs";
 
-import { deg_to_rad } from "../utils";
-import { date_to_j2000_seconds } from "./time";
+import { deg_to_rad, date_to_j2000_seconds } from "../utils";
 import { rotate_z } from "./matrix-rotations";
 
 const R_equatorial = 6378.137;
