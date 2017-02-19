@@ -38,7 +38,7 @@ export default function propagate_kepler({r, v, time, GM}) {
     const y = a * sqrt(1 - pow(e, 2)) * sinEi;
     const r = a * (1 - e * cosEi);
 
-    const {P, Q} = get_gaussian(ω, Ω, i);
+    const { P, Q } = get_gaussian(ω, Ω, i);
     const position = get_eci_position(x, y, P, Q);
     const velocity = get_eci_velocity(a, r, e, sinEi, cosEi, P, Q, GM);
 
