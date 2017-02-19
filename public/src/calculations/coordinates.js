@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { sqrt, pow, atan2, norm } from "mathjs";
 
-import { deg_to_rad } from "../utils";
+import { deg_to_rad, rad_to_longitude, rad_to_latitude } from "../utils";
 import { date_to_j2000_seconds } from "./time";
 import { rotate_z } from "./matrix-rotations";
 
@@ -19,11 +19,20 @@ export function eci_to_ecef(position, date) {
   return rotate_z(position, Θ);
 }
 
-export function ecef_to_topocentric([x, y, z]) {
+export function ecef_to_latlon_radians([x, y, z]) {
   const λ = atan2(y, x);
   const φ = atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
   const h = norm([x, y, z]) - R_avg;
   return { λ, φ, h };
+}
+
+export function ecef_to_latlon([x, y, z]) {
+  const { λ, φ, h } = ecef_to_latlon_radians([x, y, z]);
+  return {
+    latitude: rad_to_latitude(φ),
+    longitude: rad_to_longitude(λ),
+    height: h
+  };
 }
 
 export function topocentric_to_enu({ λ, φ, h }) {
