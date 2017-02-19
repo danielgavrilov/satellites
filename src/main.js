@@ -6,7 +6,8 @@ import data from "./data";
 import kep2cart from "./calculations/kep2cart";
 import cart2kep from "./calculations/cart2kep";
 import propagate_kepler from "./calculations/propagate-kepler";
-import { eci_to_ecef, ecef_to_latlon } from "./calculations/coordinates";
+import { eci_to_ecef, ecef_to_latlon } from "./calculations/coordinate-transforms";
+import { rad_to_longitude, rad_to_latitude } from "./utils";
 
 const { keplerian, cartesian, GM, time } = data["jason-2"];
 const { r, v } = cartesian;
@@ -33,8 +34,11 @@ const latlon_positions = cartesian_positions.map(({ r, time }) => {
 });
 
 const coords = latlon_positions.map(({ position }) => {
-  const { longitude, latitude } = position;
-  return [longitude, latitude];
+  const { λ, φ } = position;
+  return [
+    rad_to_longitude(λ),
+    rad_to_latitude(φ)
+  ];
 });
 
 const datum = {
