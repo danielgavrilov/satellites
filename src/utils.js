@@ -1,5 +1,6 @@
-export const { PI:π } = Math;
-export const J2000 = new Date(2000, 0, 1, 12, 0, 0);
+import { pi as π } from "mathjs";
+
+import { J2000 } from "./constants";
 
 export function normalise_angle(angle) {
   angle = angle % (2 * π);
