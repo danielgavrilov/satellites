@@ -19,8 +19,6 @@ function precalc_k_product(h, GM, r) {
 
 function step({ r: x0, v: v0, GM }, h) {
 
-  const dimensions = 3;
-
   let x = [],
       r = norm(x0),
       k = [],
@@ -31,6 +29,8 @@ function step({ r: x0, v: v0, GM }, h) {
       v1 = [];
 
   let k1, k2, k3, k4;
+
+  const dimensions = 3;
 
   k_product = precalc_k_product(h, GM, r);
 
