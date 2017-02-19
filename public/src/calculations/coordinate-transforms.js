@@ -56,3 +56,7 @@ export function latlon_to_enu({ λ, φ }) {
 
   return { e, n, u };
 }
+
+export function ecef_to_enu([x, y, z]) {
+  return latlon_to_enu(ecef_to_latlon([x, y, z]));
+}
