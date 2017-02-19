@@ -1,32 +1,37 @@
 import _ from "lodash";
 import { sin, cos, sqrt, pow, atan2, norm } from "mathjs";
 
+import {
+  EARTH_RADIUS_AVERAGE,
+  EARTH_ECI_ANOMALY,
+  EARTH_RADIANS_PER_DAY,
+  SECONDS_PER_DAY
+} from "../constants";
+
 import { deg_to_rad, date_to_j2000_seconds } from "../utils";
 import { rotate_z } from "./matrix-rotations";
 
-const R_equatorial = 6378.137;
-const R_polar = 6356.752;
-const R_avg = (R_equatorial + R_polar) / 2;
+const π = Math.PI;
 
 export function eci_to_ecef(position, date) {
   if (!_.isDate(date)) {
     throw new Error("eci_to_ecef() received an invalid time.");
   }
   const seconds = date_to_j2000_seconds(date);
-  const days = seconds / 60 / 60 / 24;
-  const Θ = deg_to_rad(280.4606 + 360.9856473662 * days);
+  const days = seconds / SECONDS_PER_DAY;
+  const Θ = (EARTH_ECI_ANOMALY + EARTH_RADIANS_PER_DAY * days) % (2*π);
   return rotate_z(position, Θ);
 }
 
 export function ecef_to_latlon([x, y, z]) {
   const λ = atan2(y, x);
   const φ = atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
-  const h = norm([x, y, z]) - R_avg;
+  const h = norm([x, y, z]) - EARTH_RADIUS_AVERAGE;
   return { λ, φ, h };
 }
 
 export function latlon_to_ecef({ λ, φ, h }) {
-  const r = h + R_avg;
+  const r = h + EARTH_RADIUS_AVERAGE;
   const x = r * cos(φ) * cos(λ);
   const y = r * cos(φ) * sin(λ);
   const z = r * sin(φ);
