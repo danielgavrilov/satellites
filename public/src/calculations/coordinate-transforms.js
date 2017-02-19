@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { sqrt, pow, atan2, norm } from "mathjs";
+import { sin, cos, sqrt, pow, atan2, norm } from "mathjs";
 
 import { deg_to_rad } from "../utils";
 import { date_to_j2000_seconds } from "./time";
@@ -24,6 +24,14 @@ export function ecef_to_latlon([x, y, z]) {
   const φ = atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
   const h = norm([x, y, z]) - R_avg;
   return { λ, φ, h };
+}
+
+export function latlon_to_ecef({ λ, φ, h }) {
+  const r = h + R_avg;
+  const x = r * cos(φ) * cos(λ);
+  const y = r * cos(φ) * sin(λ);
+  const z = r * sin(φ);
+  return [x, y, z];
 }
 
 export function latlon_to_enu({ λ, φ, h }) {
