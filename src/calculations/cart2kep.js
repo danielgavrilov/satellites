@@ -1,6 +1,6 @@
-import {sin, cos, pow, sqrt, atan2, abs, cross, dot, norm, divide} from "mathjs";
+import { sin, cos, pow, sqrt, atan2, abs, cross, dot, norm, divide } from "mathjs";
 
-import {normalise_angle} from "../utils";
+import { normalise_angle } from "../utils";
 
 export default function cart2kep({r, v, GM}) {
 
@@ -17,7 +17,7 @@ export default function cart2kep({r, v, GM}) {
   const u = get_u(r, i, Ω);
   const ω = u - ν;
 
-  return {a, e, i, ω, Ω, ν};
+  return { a, e, i, ω, Ω, ν };
 }
 
 function get_ν(e, E) {

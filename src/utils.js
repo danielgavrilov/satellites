@@ -1,4 +1,4 @@
-export const {PI:π} = Math;
+export const { PI:π } = Math;
 export const J2000 = new Date(2000, 0, 1, 12, 0, 0);
 
 export function normalise_angle(angle) {

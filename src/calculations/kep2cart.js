@@ -1,4 +1,4 @@
-import {sin, cos, pow, sqrt, add, multiply} from "mathjs";
+import { sin, cos, pow, sqrt, add, multiply } from "mathjs";
 
 export default function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 
@@ -29,14 +29,14 @@ export function get_gaussian(ω, Ω, i) {
     cos(Ω) * cos(i) * cos(ω) - sin(Ω) * sin(ω),
     sin(i) * cos(ω)
   ];
-  return {P, Q};
+  return { P, Q };
 }
 
 // in orbital
 export function get_coords_from_true_anomaly(r, ν) {
   const x = r * cos(ν);
   const y = r * sin(ν);
-  return {x, y};
+  return { x, y };
 }
 
 // turns orbital to ECI
