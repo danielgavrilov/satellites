@@ -34,7 +34,7 @@ export function latlon_to_ecef({ λ, φ, h }) {
   return [x, y, z];
 }
 
-export function latlon_to_enu({ λ, φ, h }) {
+export function latlon_to_enu({ λ, φ }) {
 
   const e = [
     -sin(λ),
