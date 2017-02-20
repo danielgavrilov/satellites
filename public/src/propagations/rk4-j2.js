@@ -1,9 +1,9 @@
 import rk4_generator from "./rk4-generator";
 import { magnitude } from "../utils/vectors";
 
-const { pow } = Math;
+const { pow, sqrt } = Math;
 
-const C2_0 = -0.4841653711736 * 1e-3;
+const C2_0 = -0.4841653711736 * 1e-3 * sqrt(5); // denormalised
 const a = 6378136.3 / 1e3; // km
 
 function calc_k(vector, h, GM) {
