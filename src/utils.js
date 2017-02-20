@@ -2,6 +2,14 @@ import { pi as π } from "mathjs";
 
 import { J2000 } from "./constants";
 
+export function magnitude(vector, dimensions=3) {
+  let sum = 0;
+  for (let i = 0; i < dimensions; i++) {
+    sum += vector[i] * vector[i];
+  }
+  return Math.sqrt(sum);
+}
+
 export function normalise_angle(angle) {
   angle = angle % (2 * π);
   if (angle < 0) angle += 2 * π;
