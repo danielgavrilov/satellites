@@ -32,7 +32,7 @@ function generate_rk4_step_function(calc_k) {
 
     // k3
 
-    const k3 = k2.slice();
+    const k3 = k2;
 
     // k4
 
