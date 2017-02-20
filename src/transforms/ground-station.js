@@ -1,6 +1,9 @@
-import { subtract, divide, dot, asin, atan2 } from "mathjs";
+import { subtract, divide, dot } from "mathjs";
 
 import { latlon_to_enu, ecef_to_enu } from "./coordinates";
+import { magnitude } from "../utils/vectors"
+
+const { asin, atan2 } = Math;
 
 export default function(station_latlon) {
 
@@ -11,7 +14,7 @@ export default function(station_latlon) {
 
     const rss = subtract(satellite_ecef, station_ecef);
     const { e, n, u } = ecef_to_enu(rss);
-    const rss_unit = divide(rss, norm(rss));
+    const rss_unit = divide(rss, magnitude(rss));
 
     const rss_e = dot(rss_unit, e);
     const rss_n = dot(rss_unit, n);

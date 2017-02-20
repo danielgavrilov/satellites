@@ -1,4 +1,4 @@
-import { deg_to_rad } from "./utils";
+import { deg_to_rad } from "./utils/angles";
 
 export const SECONDS_PER_DAY = 60 * 60 * 24;
 

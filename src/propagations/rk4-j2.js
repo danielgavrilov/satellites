@@ -1,5 +1,5 @@
 import rk4_generator from "./rk4-generator";
-import { magnitude } from "../utils";
+import { magnitude } from "../utils/vectors";
 
 const { pow } = Math;
 
