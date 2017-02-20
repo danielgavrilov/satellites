@@ -1,15 +1,18 @@
-import { sin, cos, pow, sqrt, atan2, abs, cross, dot, norm, divide } from "mathjs";
+import { cross, dot, divide } from "mathjs";
 
-import { normalise_angle } from "../utils";
+import { normalise_angle, magnitude } from "../utils";
+
+const { sin, cos, pow, sqrt, atan2, abs } = Math;
 
 export default function cart2kep({r, v, GM}) {
 
   const h = cross(r, v);
-  const W = divide(h, norm(h));
+  const h_mag = magnitude(h);
+  const W = divide(h, h_mag);
   const i = get_i(W);
   const Ω = get_Ω(W);
   const a = get_a(r, v, GM);
-  const p = pow(norm(h), 2) / GM;
+  const p = pow(h_mag, 2) / GM;
   const e = sqrt(1 - (p/a));
   const n = sqrt(GM / pow(a, 3));
   const E = get_E(r, v, a, n);
@@ -41,14 +44,14 @@ function get_Ω(W) {
 }
 
 function get_a(r, v, GM) {
-  const temp = (2 / norm(r)) - (pow(norm(v), 2) / GM);
+  const temp = (2 / magnitude(r)) - (pow(magnitude(v), 2) / GM);
   return 1 / temp;
 }
 
 function get_E(r, v, a, n) {
   return atan2(
     dot(r, v) / (pow(a, 2) * n),
-    1 - norm(r) / a
+    1 - magnitude(r) / a
   );
 }
 

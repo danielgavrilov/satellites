@@ -1,12 +1,13 @@
-import { norm, pow } from "mathjs";
-
 import rk4_generator from "./rk4-generator";
+import { magnitude } from "../utils";
+
+const { pow } = Math;
 
 const C2_0 = -0.4841653711736 * 1e-3;
 const a = 6378136.3 / 1e3; // km
 
 function calc_k(vector, h, GM) {
-  const r = norm(vector);
+  const r = magnitude(vector);
   const z = vector[2];
   return vector.map((x, i) => {
     const coef = (i === 2) ? 3 : 1;
