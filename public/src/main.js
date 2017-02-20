@@ -17,15 +17,8 @@ const { r, v } = cartesian;
 
 function transform_for_plot(cartesian_positions) {
 
-  const latlon_positions = cartesian_positions.map(({ r, time }) => {
-    return {
-      position: ecef_to_latlon(eci_to_ecef(r, time)),
-      time
-    };
-  });
-
-  const coords = latlon_positions.map(({ position }) => {
-    const { λ, φ } = position;
+  const coords = cartesian_positions.map(({ r, time }) => {
+    const { λ, φ } = ecef_to_latlon(eci_to_ecef(r, time));
     return [
       rad_to_longitude(λ),
       rad_to_latitude(φ)
