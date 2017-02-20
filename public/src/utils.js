@@ -1,5 +1,3 @@
-import { pi as π } from "mathjs";
-
 import { J2000 } from "./constants";
 
 export function magnitude(vector, dimensions=3) {
@@ -11,17 +9,17 @@ export function magnitude(vector, dimensions=3) {
 }
 
 export function normalise_angle(angle) {
-  angle = angle % (2 * π);
-  if (angle < 0) angle += 2 * π;
+  angle = angle % (2 * Math.PI);
+  if (angle < 0) angle += 2 * Math.PI;
   return angle;
 }
 
 export function deg_to_rad(degrees) {
-  return (degrees * π) / 180;
+  return (degrees * Math.PI) / 180;
 }
 
 export function rad_to_deg(radians) {
-  return (radians * 180) / π;
+  return (radians * 180) / Math.PI;
 }
 
 export function rad_to_latitude(radians) {
