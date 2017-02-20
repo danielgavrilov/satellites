@@ -1,6 +1,7 @@
 import { cross, dot, divide } from "mathjs";
 
-import { normalise_angle, magnitude } from "../utils";
+import { normalise_angle } from "../utils/angles";
+import { magnitude } from "../utils/vectors";
 
 const { sin, cos, pow, sqrt, atan2, abs } = Math;
 

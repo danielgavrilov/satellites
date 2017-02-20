@@ -5,7 +5,7 @@ import { J2000 } from "../constants";
 import cart2kep from "../transforms/cart2kep";
 import { get_gaussian, get_eci_position, get_eci_velocity } from "../transforms/kep2cart";
 import solve_kepler from "../solve-kepler";
-import { magnitude } from "../utils";
+import { magnitude } from "../utils/vectors";
 
 const { sin, cos, sqrt, pow, atan2 } = Math;
 

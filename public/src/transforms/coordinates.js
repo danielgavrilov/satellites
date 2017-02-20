@@ -7,7 +7,9 @@ import {
   SECONDS_PER_DAY
 } from "../constants";
 
-import { deg_to_rad, date_to_j2000_seconds, magnitude } from "../utils";
+import { deg_to_rad } from "../utils/angles";
+import { date_to_j2000_seconds } from "../utils/dates";
+import { magnitude } from "../utils/vectors";
 import { rotate_z } from "./rotations";
 
 const { sin, cos, sqrt, atan2, PI: π } = Math;
