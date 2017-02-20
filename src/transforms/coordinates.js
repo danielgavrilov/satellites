@@ -9,7 +9,7 @@ import {
 } from "../constants";
 
 import { deg_to_rad, date_to_j2000_seconds } from "../utils";
-import { rotate_z } from "./matrix-rotations";
+import { rotate_z } from "./rotations";
 
 const π = Math.PI;
 

@@ -1,6 +1,6 @@
 import { subtract, divide, dot, asin, atan2 } from "mathjs";
 
-import { latlon_to_enu, ecef_to_enu } from "./coordinate-transforms";
+import { latlon_to_enu, ecef_to_enu } from "./coordinates";
 
 export default function(station_latlon) {
 

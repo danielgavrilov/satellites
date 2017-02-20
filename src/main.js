@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 
 import data from "./data";
-import kep2cart from "./calculations/kep2cart";
-import cart2kep from "./calculations/cart2kep";
-import propagate_kepler from "./calculations/propagations/keplerian";
-import propagate_rk4 from "./calculations/propagations/rk4";
-import propagate_rk4_j2 from "./calculations/propagations/rk4-j2";
-import { eci_to_ecef, ecef_to_latlon } from "./calculations/coordinate-transforms";
+import kep2cart from "./transforms/kep2cart";
+import cart2kep from "./transforms/cart2kep";
+import propagate_kepler from "./propagations/keplerian";
+import propagate_rk4 from "./propagations/rk4";
+import propagate_rk4_j2 from "./propagations/rk4-j2";
+import { eci_to_ecef, ecef_to_latlon } from "./transforms/coordinates";
 import { rad_to_longitude, rad_to_latitude } from "./utils";
 import draw_map from "./draw/world-map";
 
