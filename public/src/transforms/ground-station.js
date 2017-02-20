@@ -1,7 +1,5 @@
-import { subtract, divide, dot } from "mathjs";
-
 import { latlon_to_enu, ecef_to_enu } from "./coordinates";
-import { magnitude } from "../utils/vectors"
+import { magnitude, subtract, divide, dot } from "../utils/vectors"
 
 const { asin, atan2 } = Math;
 

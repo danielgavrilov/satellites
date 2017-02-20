@@ -1,4 +1,4 @@
-import { multiply } from "mathjs";
+import { multiply } from "../utils/vectors";
 
 const { sin, cos } = Math;
 
