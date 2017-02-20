@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { sin, cos, sqrt, pow, atan2, norm } from "mathjs";
 
 import {
   EARTH_RADIUS_AVERAGE,
@@ -8,10 +7,10 @@ import {
   SECONDS_PER_DAY
 } from "../constants";
 
-import { deg_to_rad, date_to_j2000_seconds } from "../utils";
+import { deg_to_rad, date_to_j2000_seconds, magnitude } from "../utils";
 import { rotate_z } from "./rotations";
 
-const π = Math.PI;
+const { sin, cos, sqrt, atan2, PI: π } = Math;
 
 export function eci_to_ecef(position, date) {
   if (!_.isDate(date)) {
@@ -25,37 +24,49 @@ export function eci_to_ecef(position, date) {
 
 export function ecef_to_latlon([x, y, z]) {
   const λ = atan2(y, x);
-  const φ = atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
-  const h = norm([x, y, z]) - EARTH_RADIUS_AVERAGE;
+  const φ = atan2(z, sqrt(x*x + y*y));
+  const h = magnitude([x, y, z]) - EARTH_RADIUS_AVERAGE;
   return { λ, φ, h };
 }
 
 export function latlon_to_ecef({ λ, φ, h }) {
+
+  const sinφ = sin(φ),
+        cosφ = cos(φ),
+        sinλ = sin(λ),
+        cosλ = cos(λ);
+
   const r = h + EARTH_RADIUS_AVERAGE;
-  const x = r * cos(φ) * cos(λ);
-  const y = r * cos(φ) * sin(λ);
-  const z = r * sin(φ);
+  const x = r * cosφ * cosλ;
+  const y = r * cosφ * sinλ;
+  const z = r * sinφ;
+
   return [x, y, z];
 }
 
 export function latlon_to_enu({ λ, φ }) {
 
+  const sinφ = sin(φ),
+        cosφ = cos(φ),
+        sinλ = sin(λ),
+        cosλ = cos(λ);
+
   const e = [
-    -sin(λ),
-    cos(λ),
+    -sinλ,
+    cosλ,
     0
   ];
 
   const n = [
-    -cos(λ) * sin(φ),
-    -sin(λ) * sin(φ),
-    cos(φ) * k
+    -cosλ * sinφ,
+    -sinλ * sinφ,
+    cosφ * k
   ];
 
   const u = [
-    cos(λ) * cos(φ),
-    sin(λ) * cos(φ),
-    sin(φ)
+    cosλ * cosφ,
+    sinλ * cosφ,
+    sinφ
   ];
 
   return { e, n, u };

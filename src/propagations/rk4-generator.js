@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { pow, norm } from "mathjs";
 
 function generate_rk4_step_function(calc_k) {
   return function({ r: x0, v: v0, GM }, h) {

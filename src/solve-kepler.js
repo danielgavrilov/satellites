@@ -1,4 +1,4 @@
-import { abs, sin, cos } from "mathjs";
+const { abs, sin, cos } = Math;
 
 export default function solve_kepler(M, e) {
   let E = M;
