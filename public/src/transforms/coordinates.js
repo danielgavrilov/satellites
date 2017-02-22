@@ -14,14 +14,14 @@ import { rotate_z } from "./rotations";
 
 const { sin, cos, sqrt, atan2, PI: π } = Math;
 
-export function eci_to_ecef(position, date) {
+export function eci_to_ecef([x, y, z], date) {
   if (!_.isDate(date)) {
     throw new Error("eci_to_ecef() received an invalid time.");
   }
   const seconds = date_to_j2000_seconds(date);
   const days = seconds / SECONDS_PER_DAY;
   const Θ = (EARTH_ECI_ANOMALY + EARTH_RADIANS_PER_DAY * days) % (2*π);
-  return rotate_z(position, Θ);
+  return rotate_z([x, y, z], Θ);
 }
 
 export function ecef_to_latlon([x, y, z]) {
