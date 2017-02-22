@@ -9,7 +9,7 @@ import {
 
 import { deg_to_rad } from "../utils/angles";
 import { date_to_j2000_seconds } from "../utils/dates";
-import { magnitude } from "../utils/vectors";
+import { magnitude, divide, cross } from "../utils/vectors";
 import { rotate_z } from "./rotations";
 
 const { sin, cos, sqrt, atan2, PI: π } = Math;
@@ -76,4 +76,12 @@ export function latlon_to_enu({ λ, φ }) {
 
 export function ecef_to_enu([x, y, z]) {
   return latlon_to_enu(ecef_to_latlon([x, y, z]));
+}
+
+export function eci_to_hcl({ r, v }) {
+  const rxv = cross(r, v);
+  const h = divide(r, magnitude(r));
+  const c = divide(rxv, magnitude(rxv));
+  const l = cross(c, h);
+  return { h, c, l };
 }
