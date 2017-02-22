@@ -2,14 +2,19 @@ import _ from "lodash";
 import * as d3 from "d3";
 import * as topojson from "topojson";
 
+import { WIDTH } from "../constants";
+
 const π = Math.PI;
 
 export default function(svg) {
 
-  const root = svg.append("g");
+  const width = WIDTH,
+        height = width / 2;
 
-  const width = svg.attr("width"),
-        height = svg.attr("height");
+  const root = svg
+      .attr("width", width)
+      .attr("height", height)
+    .append("g");
 
   const projection = d3.geoEquirectangular()
       .scale(height / π)

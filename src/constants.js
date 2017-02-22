@@ -1,5 +1,7 @@
 import { deg_to_rad } from "./utils/angles";
 
+export const WIDTH = 840;
+
 export const SECONDS_PER_DAY = 60 * 60 * 24;
 
 export const EARTH_RADIUS_EQUATORIAL = 6378.137;
