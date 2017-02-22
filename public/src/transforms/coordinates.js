@@ -62,7 +62,7 @@ export function latlon_to_enu({ λ, φ }) {
   const n = [
     -cosλ * sinφ,
     -sinλ * sinφ,
-    cosφ * k
+    cosφ
   ];
 
   const u = [
