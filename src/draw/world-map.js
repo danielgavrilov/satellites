@@ -5,6 +5,8 @@ const π = Math.PI;
 
 export default function(svg) {
 
+  const root = svg.append("g");
+
   const width = svg.attr("width"),
         height = svg.attr("height");
 
@@ -18,33 +20,41 @@ export default function(svg) {
 
   const graticule = d3.geoGraticule();
 
-  svg.append("defs").append("path")
-      .datum({type: "Sphere"})
-      .attr("id", "sphere")
-      .attr("d", path);
-
-  svg.append("path")
+  const graticule_path = root.append("path")
       .datum(graticule)
       .attr("class", "graticule")
       .attr("d", path);
 
-  svg.append("use")
-      .attr("class", "stroke")
-      .attr("xlink:href", "#sphere");
-
-  const track_path = svg.append("path")
+  const track_path = root.append("path")
       .attr("class", "ground-track");
+
+  const land = root.insert("path", ".graticule");
+  const borders = root.insert("path", ".graticule");
+
+  const zoom = d3.zoom()
+      .scaleExtent([1, 20])
+      .translateExtent([[0,0], [width, height]])
+      .on("zoom", zoomed)
+
+  svg.call(zoom);
+  svg.call(zoom.transform, d3.zoomIdentity);
+
+  function zoomed() {
+    const transform = d3.event.transform;
+    root.attr("transform", transform);
+    track_path.style("stroke-width", 1.5 / transform.k);
+    graticule_path.style("stroke-width", 0.75 / transform.k);
+    borders.style("stroke-width", 0.75 / transform.k);
+  }
 
   d3.json("/data/world-50m.json", function(error, world) {
     if (error) throw error;
 
-    svg.insert("path", ".graticule")
-        .datum(topojson.feature(world, world.objects.land))
+    land.datum(topojson.feature(world, world.objects.land))
         .attr("class", "land")
         .attr("d", path);
 
-    svg.insert("path", ".graticule")
-        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+    borders.datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
         .attr("class", "boundary")
         .attr("d", path);
   });
