@@ -28,7 +28,7 @@ function transform_for_plot(cartesian_positions) {
 
   return {
     type: "LineString",
-    coordinates: simplify(coords, .02)
+    coordinates: simplify(coords, .01)
   };
 }
 
