@@ -36,23 +36,13 @@ function transform_for_plot(cartesian_positions) {
 
 const DAYS = 1;
 
-const world_map_keplerian = draw_map(d3.select("#world-map-keplerian"));
-const world_map_rk4 = draw_map(d3.select("#world-map-rk4"));
+const world_map = draw_map(d3.select("#world-map"));
 
+const predictions_kep     = propagate_kepler({ r, v, GM, time }, DAYS * 8640, 10);
+const predictions_rk4     = propagate_rk4({ r, v, GM, time }, DAYS * 8640, 10);
+const predictions_rk4_j2  = propagate_rk4_j2({ r, v, GM, time }, DAYS * 8640, 10);
 
-const propagate_kepler_jason2 = propagate_kepler({r, v, GM, time});
-
-const intervals = d3.range(+time, +time + DAYS * 8640 * 10e3, 10e3)
-    .map(ms => new Date(ms));
-
-const predictions_keplerian = intervals.map((time) => {
-  const { r, v } = propagate_kepler_jason2(time);
-  return { r, v, time };
-});
-
-
-const predictions_rk4 = propagate_rk4({ r, v, GM, time }, DAYS * 8640, 10);
-
-
-world_map_keplerian.track(transform_for_plot(predictions_keplerian));
-world_map_rk4.track(transform_for_plot(predictions_rk4));
+world_map
+  .track("kep", transform_for_plot(predictions_kep))
+  .track("rk4", transform_for_plot(predictions_rk4))
+  .track("rk4-j2", transform_for_plot(predictions_rk4_j2))

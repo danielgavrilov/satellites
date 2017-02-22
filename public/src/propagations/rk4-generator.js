@@ -56,7 +56,7 @@ export default function(calc_k) {
 
   const step = generate_rk4_step_function(calc_k);
 
-  return function({ r, v, time, GM }, steps, step_size) {
+  return function({ r, v, time, GM }, steps, step_size=10) {
     let predictions = [];
     for (let i = 0; i < steps; i++) {
       predictions.push({ r, v, time });

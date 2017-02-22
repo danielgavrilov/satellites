@@ -1,3 +1,4 @@
+import _ from "lodash";
 import * as d3 from "d3";
 import * as topojson from "topojson";
 
@@ -25,9 +26,6 @@ export default function(svg) {
       .attr("class", "graticule")
       .attr("d", path);
 
-  const track_path = root.append("path")
-      .attr("class", "ground-track");
-
   const land = root.insert("path", ".graticule");
   const borders = root.insert("path", ".graticule");
 
@@ -39,12 +37,16 @@ export default function(svg) {
   svg.call(zoom);
   svg.call(zoom.transform, d3.zoomIdentity);
 
+  let paths = {};
+
   function zoomed() {
     const transform = d3.event.transform;
     root.attr("transform", transform);
-    track_path.style("stroke-width", 1.5 / transform.k);
     graticule_path.style("stroke-width", 0.75 / transform.k);
     borders.style("stroke-width", 0.75 / transform.k);
+    _.values(paths).forEach((path) => {
+      path.style("stroke-width", 1.5 / transform.k);
+    });
   }
 
   d3.json("/data/world-50m.json", function(error, world) {
@@ -59,13 +61,21 @@ export default function(svg) {
         .attr("d", path);
   });
 
-  function track(datum) {
-    track_path.datum(datum).attr("d", path);
+
+  function noop() {}
+
+  noop.track = function(name, datum) {
+    if (!paths[name]) {
+      paths[name] = root.append("path")
+        .attr("class", "ground-track " + name);
+    }
+    paths[name].datum(datum).attr("d", path);
+    return noop;
   }
 
-  function stations(station_latlon) {
-
+  noop.stations = function(station_latlon) {
+    return noop;
   }
 
-  return { track, stations };
+  return noop;
 }
