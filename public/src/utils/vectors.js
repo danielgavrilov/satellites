@@ -1,12 +1,12 @@
 import _ from "lodash";
 
 export function magnitude(vector) {
-  const sum = _.sumBy(vector, (x) => x*x);
+  const sum = _.sumBy(vector, (x) => x * x);
   return Math.sqrt(sum);
 }
 
 export function dot(a, b) {
-  return _.sum(_.zipWith(a, b, (a, b) => a*b));
+  return _.sum(_.zipWith(a, b, (a, b) => a * b));
 }
 
 export function subtract(a, b) {
@@ -19,8 +19,10 @@ export function subtract(a, b) {
 
 export function multiply(a, b) {
   if (_.isNumber(b)) {
+    // vector × scalar
     return a.map((x) => x * b);
   } else {
+    // matrix × vector
     const cols = a.length;
     const rows = a[0].length;
     let result = [];
