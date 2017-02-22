@@ -9,7 +9,6 @@ import propagate_rk4_j2 from "./propagations/rk4-j2";
 import { eci_to_ecef, ecef_to_latlon } from "./transforms/coordinates";
 import { rad_to_longitude, rad_to_latitude } from "./utils/angles";
 import draw_map from "./draw/world-map";
-import simplify from "./utils/simplify";
 
 const { keplerian, cartesian, GM, time } = data["jason-2"];
 const { r, v } = cartesian;
@@ -28,7 +27,7 @@ function transform_for_plot(cartesian_positions) {
 
   return {
     type: "LineString",
-    coordinates: simplify(coords, .01)
+    coordinates: coords
   };
 }
 
