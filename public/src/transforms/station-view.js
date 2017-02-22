@@ -1,4 +1,4 @@
-import { latlon_to_enu, ecef_to_enu } from "./coordinates";
+import { latlon_to_enu, latlon_to_ecef, ecef_to_enu } from "./coordinates";
 import { magnitude, subtract, divide, dot } from "../utils/vectors"
 
 const { asin, atan2 } = Math;
@@ -18,7 +18,7 @@ export default function(station_latlon) {
     const rss_u = dot(rss_unit, u);
 
     const elevation = asin(rss_u);
-    const azimuth = atan2(rss_e, ess_n);
+    const azimuth = atan2(rss_e, rss_n);
 
     return { elevation, azimuth };
   }
