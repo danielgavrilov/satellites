@@ -28,6 +28,19 @@
   stroke-opacity: 0.75;
 }
 
+.ground-track.kep {
+  stroke: rgba(234, 14, 14, 0.32);
+}
+
+.ground-track.rk4 {
+  stroke: rgba(6, 216, 42, 0.35);
+}
+
+.ground-track.rk4-j2 {
+  stroke: #15609f;
+}
+
+
 .world-map {
   border: 1.5px solid #ccc;
   cursor: move;

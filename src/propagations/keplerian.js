@@ -26,7 +26,7 @@ function df(E, e) {
   return 1 - e * cos(E);
 }
 
-export default function propagate_kepler({r, v, time, GM}) {
+function generator({ r, v, time, GM }) {
 
   if (!_.isDate(time)) {
     throw new Error("propagate_kepler() received an invalid time.");
@@ -69,4 +69,20 @@ export default function propagate_kepler({r, v, time, GM}) {
     }
 
   }
+}
+
+export default function propagate_kepler({ r, v, time, GM }, steps, step_size=10) {
+
+  const propagate = generator({ r, v, time, GM });
+
+  const intervals = _.range(
+    +time,
+    +time + steps * step_size * 1e3,
+    step_size * 1e3
+  ).map(ms => new Date(ms));
+
+  return intervals.map((time) => {
+    const { r, v } = propagate(time);
+    return { r, v, time };
+  });
 }
