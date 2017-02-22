@@ -3,7 +3,7 @@ import { magnitude } from "../utils/vectors";
 
 const { pow, sqrt } = Math;
 
-const C2_0 = -0.4841653711736 * 1e-3 * sqrt(5); // denormalised
+const C2_0 = -0.484165371736 * 1e-3 * sqrt(5); // denormalised
 const a = 6378136.3 / 1e3; // km
 
 function calc_k(vector, h, GM) {
