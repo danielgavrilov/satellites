@@ -1,7 +1,7 @@
 const TAKE = 1,
       LEAVE = 0;
 
-export default function group_consecutive(array, predicate) {
+export function group_consecutive(array, predicate) {
 
   let state = LEAVE,
       groups = [],
