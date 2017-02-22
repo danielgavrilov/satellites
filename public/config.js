@@ -18,6 +18,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "d3": "npm:d3@4.5.1",
+    "eventemitter": "npm:wolfy87-eventemitter@5.1.0",
     "lodash": "npm:lodash@4.17.4",
     "moment": "npm:moment@2.17.1",
     "topojson": "npm:topojson@2.2.0",
@@ -281,6 +282,9 @@ System.config({
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
+    },
+    "npm:wolfy87-eventemitter@5.1.0": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2"
     },
     "npm:xmlhttprequest@1.8.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
