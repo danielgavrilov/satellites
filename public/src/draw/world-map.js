@@ -35,7 +35,7 @@ export default function(svg) {
   const track_path = svg.append("path")
       .attr("class", "ground-track");
 
-  d3.json("/data/world-110m.json", function(error, world) {
+  d3.json("/data/world-50m.json", function(error, world) {
     if (error) throw error;
 
     svg.insert("path", ".graticule")
