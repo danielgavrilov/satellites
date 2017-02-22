@@ -18,7 +18,6 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "d3": "npm:d3@4.5.1",
-    "d3-geo-projection": "npm:d3-geo-projection@1.2.1",
     "lodash": "npm:lodash@4.17.4",
     "moment": "npm:moment@2.17.1",
     "topojson": "npm:topojson@2.2.0",
@@ -123,15 +122,6 @@ System.config({
       "d3-quadtree": "npm:d3-quadtree@1.0.2",
       "d3-timer": "npm:d3-timer@1.0.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:d3-geo-projection@1.2.1": {
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "commander": "npm:commander@2.9.0",
-      "d3-array": "npm:d3-array@1.0.2",
-      "d3-geo": "npm:d3-geo@1.4.2",
-      "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "process": "github:jspm/nodelibs-process@0.1.2",
-      "readline": "github:jspm/nodelibs-readline@0.1.0"
     },
     "npm:d3-geo@1.4.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
