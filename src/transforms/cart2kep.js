@@ -43,8 +43,7 @@ function get_Ω(W) {
 }
 
 function get_a(r, v, GM) {
-  const temp = (2 / magnitude(r)) - (pow(magnitude(v), 2) / GM);
-  return 1 / temp;
+  return 1 / ((2 / magnitude(r)) - (pow(magnitude(v), 2) / GM));
 }
 
 function get_E(r, v, a, n) {
