@@ -3,7 +3,7 @@ import _ from "lodash";
 function generate_rk4_step_function(calc_k) {
   return function({ r: x0, v: v0, GM }, h) {
 
-    function calc_xk2([x0, v0, k1]) {
+    function calc_xk23([x0, v0, k1]) {
       return x0 + 0.5 * h * v0 + k1 / 4;
     }
 
@@ -27,12 +27,13 @@ function generate_rk4_step_function(calc_k) {
 
     // k2
 
-    const xk2 = _.zip(x0, v0, k1).map(calc_xk2);
+    const xk2 = _.zip(x0, v0, k1).map(calc_xk23);
     const k2 = calc_k(xk2, h, GM);
 
     // k3
 
-    const k3 = k2;
+    const xk3 = _.zip(x0, v0, k2).map(calc_xk23);
+    const k3 = calc_k(xk2, h, GM);
 
     // k4
 
