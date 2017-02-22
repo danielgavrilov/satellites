@@ -11,7 +11,6 @@ export default function(station_latlon) {
   return function(satellite_ecef) {
 
     const rss = subtract(satellite_ecef, station_ecef);
-    const { e, n, u } = ecef_to_enu(rss);
     const rss_unit = divide(rss, magnitude(rss));
 
     const rss_e = dot(rss_unit, e);
