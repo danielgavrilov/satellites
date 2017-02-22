@@ -4,10 +4,27 @@ import moment from "moment";
 import cart2kep from "../transforms/cart2kep";
 import { J2000 } from "../constants";
 import { get_gaussian, get_eci_position, get_eci_velocity } from "../transforms/kep2cart";
-import solve_kepler from "../solve-kepler";
 import { magnitude } from "../utils/vectors";
 
-const { sin, cos, sqrt, pow, atan2 } = Math;
+const { abs, sin, cos, sqrt, pow, atan2 } = Math;
+
+function solve_kepler(M, e) {
+  let E = M;
+  let x;
+  do {
+    x = f(M, E, e);
+    E -= x / df(E, e);
+  } while (abs(x) > 1e-7);
+  return E;
+}
+
+function f(M, E, e) {
+  return E - e * sin(E) - M;
+}
+
+function df(E, e) {
+  return 1 - e * cos(E);
+}
 
 export default function propagate_kepler({r, v, time, GM}) {
 
