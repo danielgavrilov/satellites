@@ -47,7 +47,7 @@ stations_controller({
   locations,
   world_map,
   track: tracks.rk4_j2,
-  views_container: d3.select("#station-views")
+  views_container: d3.select("#station-views").select(".content")
 });
 
 // tracks_controller({ tracks, world_map });
@@ -56,10 +56,10 @@ world_map
   // .track("kep", track_to_plot(tracks.kep))
   // .track("rk4", track_to_plot(tracks.rk4))
   .track("rk4-j2", track_to_plot(tracks.rk4_j2))
-  // .station(0, point_to_plot(stations[0]));
+  // .station(0, latlon_to_plot(stations[0]));
 
 graphs({
-  container: d3.select("#graphs"),
+  container: d3.select("#graphs").select(".content"),
   width: WIDTH,
   extent: d3.extent(tracks.kep, (d) => d.time)
 });
