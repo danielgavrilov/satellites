@@ -89,7 +89,7 @@ export default function(svg) {
         coversContainer     = root.append("g").attr("class", "covers"),
         stationsContainer   = root.append("g").attr("class", "stations");
 
-  d3.json("./data/world-50m.json", function(error, world) {
+  d3.json("data/world-50m.json", function(error, world) {
     if (error) throw error;
 
     land.datum(topojson.feature(world, world.objects.land))
