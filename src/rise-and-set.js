@@ -2,9 +2,8 @@ import station_view from "./transforms/station-view";
 import { group_consecutive } from "./utils/arrays";
 import { deg_to_rad } from "./utils/angles";
 
-export default function rise_and_set(track, station_latlon, mask_angle=5) {
+export default function rise_and_set(track, station_latlon, mask_angle) {
 
-  const mask_angle_rad = deg_to_rad(mask_angle);
   const get_azimuth_elevation = station_view(station_latlon);
 
   const items = track.map((point) => {
@@ -18,7 +17,7 @@ export default function rise_and_set(track, station_latlon, mask_angle=5) {
   });
 
   const rise_and_set_groups = group_consecutive(items, ({ elevation }) => {
-    return elevation >= mask_angle_rad;
+    return elevation >= mask_angle;
   });
 
   const result = rise_and_set_groups.map((items) => {

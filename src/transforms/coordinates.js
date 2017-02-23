@@ -31,7 +31,7 @@ export function ecef_to_latlon([x, y, z]) {
   return { λ, φ, h };
 }
 
-export function latlon_to_ecef({ λ, φ, h }) {
+export function latlon_to_ecef({ λ, φ, h=0 }) {
 
   const sinφ = sin(φ),
         cosφ = cos(φ),
@@ -84,4 +84,15 @@ export function eci_to_hcl({ r, v }) {
   const c = divide(rxv, magnitude(rxv));
   const l = cross(c, h);
   return { h, c, l };
+}
+
+export function eci_to_all_systems({ r, v, time }) {
+  const r_ecef = eci_to_ecef(r, time);
+  const r_latlon = ecef_to_latlon(r_ecef);
+  return {
+    eci: { r, v },
+    ecef: { r: r_ecef },
+    latlon: r_latlon,
+    time
+  };
 }
