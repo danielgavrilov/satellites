@@ -14,7 +14,7 @@ html {
 }
 
 .land {
-  fill: #ddd;
+  fill: #e6e6e6;
 }
 
 .boundary {
@@ -36,19 +36,119 @@ html {
   stroke-opacity: 0.75;
 }
 
+.cover {
+  fill: none;
+  stroke-width: 3px;
+  stroke-opacity: 0.55;
+}
+
 .ground-track.kep {
-  stroke: rgba(234, 14, 14, 0.38);
+  stroke: #d76a10;
+  stroke-opacity: 0.07;
 }
 
 .ground-track.rk4 {
-  stroke: rgba(6, 216, 42, 0.35);
+  stroke: #ae06d7;
+  stroke-opacity: 0.07;
 }
 
 .ground-track.rk4-j2 {
-  stroke: #15609f;
+  stroke: #025396;
+  stroke-opacity: 0.35;
 }
 
 .world-map {
   border: 1.5px solid #ccc;
+  display: block;
+}
+
+.station {
+  stroke: white;
   cursor: move;
+  stroke-width: 1px;
+}
+
+/* ========================================================================== */
+
+#station-views svg {
+  border: 1.5px solid #ccc;
+}
+
+#station-views path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#station-views .horizon {
+  stroke: #000;
+  stroke-opacity: .2;
+  stroke-width: 1.5px;
+}
+
+#station-views .mask {
+  stroke: #000;
+  stroke-opacity: .2;
+  stroke-dasharray: 2,2;
+  stroke-width: 1.5px;
+  fill: rgba(0,0,0,.05);
+}
+
+#station-views .graticule {
+  stroke: #000;
+  stroke-opacity: .1;
+}
+
+#station-views .ticks line {
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+#station-views text {
+  font: 9px sans-serif;
+  fill: rgba(96, 96, 96, 0.35);
+}
+
+#station-views .ticks text {
+  text-anchor: middle;
+}
+
+#station-views .ticks--azimuth text:nth-of-type(3n + 1) {
+  font-weight: bold;
+  font-size: 11px;
+  fill: rgba(50, 50, 50, 0.55);
+}
+
+/* ========================================================================== */
+
+#graphs {
+  margin-top: 20px;
+}
+
+#graphs .axis path {
+  fill: none;
+  stroke: none;
+}
+
+#graphs .axis line {
+  fill: none;
+  stroke: #ccc;
+  stroke-dasharray: 1,2;
+  shape-rendering: crispEdges;
+}
+
+#graphs .axis .day line {
+  stroke: #999;
+  stroke-dasharray: 1,1;
+}
+
+#graphs .axis text {
+  font-size: 11px;
+  text-transform: uppercase;
+  fill: #888;
+}
+
+#graphs .axis .day text {
+  fill: #555;
+  font-weight: bold;
 }
