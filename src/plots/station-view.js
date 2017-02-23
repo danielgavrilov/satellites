@@ -16,11 +16,25 @@ export default function({ container, width, height, padding, name, mask_angle })
 
   const scale = width * .4;
 
-  const root = container.append("svg")
+  const wrapper = container.append("div")
+      .attr("class", "station-view-wrapper")
+      .style("margin-right", padding + "px");
+
+  const root = wrapper.append("svg")
       .attr("width", width)
       .attr("height", height)
-      .style("margin-top", padding + "px")
-      .style("margin-left", padding + "px");
+
+  const description = wrapper.append("div");
+
+  function update_description({ name, latitude, longitude }) {
+    description.html(`
+      <h2>Ground Station ${name}</h2>
+      <p>
+        latitude: <b>${latitude.toFixed(4)}°</b><br />
+        longitude: <b>${longitude.toFixed(4)}°</b>
+      </p>
+    `);
+  }
 
   const formatTime = d3.timeFormat("%-I %p"),
         formatNumber = d3.format(".1f"),
@@ -115,6 +129,22 @@ export default function({ container, width, height, padding, name, mask_angle })
       .attr("d", path);
 
     update.exit().remove();
+
+    return noop;
+  };
+
+  noop.station = function([longitude, latitude]) {
+    update_description({ name, longitude, latitude });
+    return noop;
+  };
+
+  noop.satellite = function(position) {
+    // TODO
+    if (position == null) {
+      return;
+    }
+    const [azimuth, elevation] = position;
+    return noop;
   };
 
   return noop;

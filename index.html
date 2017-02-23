@@ -7,11 +7,39 @@
   </head>
   <body>
     <div id="container">
+
       <div class="world-map-container">
-        <svg id="world-map" class="world-map"></svg>
+        <div class="side-note">
+          <h2>Ground tracks and ground stations</h2>
+          <p>The plot shows satellite ground tracks projected onto longitude &amp; latitude (not taking altitude into account). It uses an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>.</p>
+          <p>The ground stations are coloured circles&mdash;you can <strong>drag the circles</strong> to change their location. </p>
+          <p><strong>Scroll</strong> to zoom in and out.</p>
+        </div>
+        <div class="content">
+          <svg id="world-map" class="world-map" width="840" height="420"></svg>
+        </div>
       </div>
-      <div id="station-views"></div>
-      <div id="graphs"></div>
+
+      <div id="station-views">
+        <div class="side-note">
+          <h2>Ground station views</h2>
+          <p>The four plots show the position of the satellite over time under an <a href="https://en.wikipedia.org/wiki/North_east_down">ENU frame</a>, relative to the specific ground station. It uses a <a href="https://en.wikipedia.org/wiki/Stereographic_projection">stereographic projection</a>.</p>
+        </div>
+        <div class="content">
+
+        </div>
+      </div>
+
+      <div id="graphs">
+        <div class="side-note" style="width: 160px">
+          <h2>Rise and set times</h2>
+          <p>The blocks show the time intervals the sattelite is visible from a specific ground station.</p>
+        </div>
+        <div class="content">
+
+        </div>
+      </div>
+
     </div>
 
     <script src="jspm_packages/system.js"></script>

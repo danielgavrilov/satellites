@@ -45,9 +45,6 @@ export default function(svg) {
       .translateExtent([[0, 0], [width, height]])
       .on("zoom", zoomed)
 
-  svg.call(zoom);
-  svg.call(zoom.transform, d3.zoomIdentity);
-
   function zoomed() {
     const transform = d3.event.transform;
     root.attr("transform", transform);
@@ -55,6 +52,13 @@ export default function(svg) {
     borders.style("stroke-width", 0.75 / transform.k);
     _.values(tracks).forEach((path) => {
       path.style("stroke-width", 1.5 / transform.k);
+    });
+    _.values(covers).forEach((cover) => {
+      cover.selectAll(".cover").style("stroke-width", 3 / transform.k);
+    });
+    _.values(stations).forEach((circle) => {
+      circle.attr("r", 4 / Math.log(1 + transform.k))
+       .style("stroke-width", 1 / transform.k);
     });
   }
 
@@ -68,13 +72,12 @@ export default function(svg) {
   }
 
   function dragging(datum) {
-    const mouse = d3.mouse(this);
-    const p = d3.zoomTransform(svg.node()).invert(mouse);
+    const p = d3.mouse(this);
     datum.location = projection.invert(p);
     d3.select(this)
       .datum(datum)
-      .attr("cx", mouse[0])
-      .attr("cy", mouse[1]);
+      .attr("cx", p[0])
+      .attr("cy", p[1]);
   }
 
   function dragend({ name, location }) {
@@ -84,6 +87,13 @@ export default function(svg) {
     };
     events.emit("station-location:" + name, latlon);
   }
+
+  const refresh_zoom = _.debounce(() => {
+    svg.call(zoom);
+    svg.call(zoom.transform, d3.zoomIdentity);
+  }, 100);
+
+  refresh_zoom();
 
   const tracksContainer     = root.append("g").attr("class", "tracks"),
         coversContainer     = root.append("g").attr("class", "covers"),
@@ -151,6 +161,11 @@ export default function(svg) {
 
       update.exit().remove();
     }
+    return noop;
+  };
+
+  noop.position = function([longitude, latitude]) {
+    // TODO
     return noop;
   };
 
