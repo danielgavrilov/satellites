@@ -7,7 +7,7 @@ import propagate_rk4 from "./propagations/rk4";
 import propagate_rk4_j2 from "./propagations/rk4-j2";
 import { deg_to_rad } from "./utils/angles";
 import draw_map from "./plots/world-map";
-import graphs from "./plots/graphs";
+import create_graphs from "./plots/graphs";
 import diff_hcl from "./transforms/diff-hcl";
 import events from "./events";
 import { WIDTH, MASK_ANGLE } from "./constants";
@@ -43,9 +43,16 @@ const locations = [
   { φ: deg_to_rad(-30), λ: deg_to_rad(270), h: 0 },
 ]
 
+const graphs = create_graphs({
+  container: d3.select("#graphs").select(".content"),
+  width: WIDTH,
+  extent: d3.extent(tracks.kep, (d) => d.time)
+});
+
 stations_controller({
   locations,
   world_map,
+  graphs,
   track: tracks.rk4_j2,
   views_container: d3.select("#station-views").select(".content")
 });
@@ -53,13 +60,7 @@ stations_controller({
 // tracks_controller({ tracks, world_map });
 
 world_map
-  // .track("kep", track_to_plot(tracks.kep))
-  // .track("rk4", track_to_plot(tracks.rk4))
+  .track("kep", track_to_plot(tracks.kep))
+  .track("rk4", track_to_plot(tracks.rk4))
   .track("rk4-j2", track_to_plot(tracks.rk4_j2))
   // .station(0, latlon_to_plot(stations[0]));
-
-graphs({
-  container: d3.select("#graphs").select(".content"),
-  width: WIDTH,
-  extent: d3.extent(tracks.kep, (d) => d.time)
-});

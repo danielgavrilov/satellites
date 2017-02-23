@@ -7,7 +7,7 @@ import { deg_to_rad } from "../utils/angles";
 import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "../transforms/plots";
 import { WIDTH, MASK_ANGLE } from "../constants";
 
-export default function({ locations, track, world_map, views_container }) {
+export default function({ locations, track, world_map, graphs, views_container }) {
 
   const station_view_padding = 10;
   const station_view_width = (WIDTH - station_view_padding * (locations.length - 1)) / locations.length;
@@ -35,6 +35,7 @@ export default function({ locations, track, world_map, views_container }) {
     d.view.tracks(relative_tracks);
     const tracks = d.rise_and_set.map(({ track }) => track_to_plot(track));
     world_map.cover(d.name, tracks);
+    graphs.rise_and_set.intervals(d.name, d.rise_and_set);
   }
 
   function update_map_location(d) {

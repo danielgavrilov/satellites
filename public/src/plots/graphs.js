@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import rise_and_set_graph from "./rise-and-set";
 
 var formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
@@ -35,7 +36,7 @@ export default function({ container, extent, width }) {
       .tickFormat(multiFormat)
       .tickSize(-height)
       .tickPadding(10)
-      .ticks(10);
+      .ticks(12);
 
   const axisElem = root.append("g")
       .attr("class", "x-axis axis")
@@ -44,6 +45,19 @@ export default function({ container, extent, width }) {
   axisElem.selectAll(".tick")
       .classed("day", (d) => +d3.timeDay(d) == +d);
 
+  const rise_and_set_container = root.append("g")
+    .attr("class", "rise-and-set-container")
+    .attr("transform", "translate(0, 10)");
+
+  const rise_and_set = rise_and_set_graph({
+    container: rise_and_set_container,
+    x,
+    width
+  });
+
+  return {
+    rise_and_set
+  };
 }
 
 /*
