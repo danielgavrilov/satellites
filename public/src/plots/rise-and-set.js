@@ -1,6 +1,6 @@
 import { STATION_COLOURS } from "../constants";
 
-const BAR_HEIGHT = 6,
+const BAR_HEIGHT = 10,
       MID_HEIGHT = BAR_HEIGHT / 2,
       PADDING = 10;
 
@@ -20,7 +20,8 @@ export default function({ container, x, width }) {
       .attr("x2", width)
       .attr("y2", MID_HEIGHT);
     element.append("text")
-      .attr("y", 5)
+      .attr("y", MID_HEIGHT)
+      .attr("dy", ".1em")
       .attr("class", "ground-station-label")
       .attr("transform", "translate(-10, 0)")
       .text("Station " + name);
