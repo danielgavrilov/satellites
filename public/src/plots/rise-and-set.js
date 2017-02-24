@@ -8,7 +8,7 @@ export default function({ container, x, width }) {
 
   let stations = {};
 
-  function append(container, name) {
+  function append(container, name, label) {
     const element = container.append("g")
       .attr("class", "rise-and-set")
       .attr("transform", `translate(0, ${name * (BAR_HEIGHT + PADDING)})`);
@@ -24,7 +24,7 @@ export default function({ container, x, width }) {
       .attr("dy", ".1em")
       .attr("class", "ground-station-label")
       .attr("transform", "translate(-10, 0)")
-      .text("Station " + name);
+      .text(label);
     return element;
   }
 
@@ -33,7 +33,8 @@ export default function({ container, x, width }) {
   noop.intervals = function(name, intervals) {
 
     if (!stations[name]) {
-      stations[name] = append(container, name);
+      const label = intervals.overall ? "Coverage" : "Station " + name;
+      stations[name] = append(container, name, label);
     }
 
     const update = stations[name].selectAll(".interval")

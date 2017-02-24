@@ -1,5 +1,7 @@
+import _ from "lodash";
+
 import events from "./events";
-import rise_and_set from "./rise-and-set";
+import rise_and_set, { combine_rise_and_set } from "./rise-and-set";
 import station_view from "./plots/station-view";
 import { deg_to_rad } from "./utils/angles";
 import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "./transforms/plots";
@@ -36,6 +38,14 @@ export default function({ locations, track, world_map, graphs, views_container }
     graphs.rise_and_set.intervals(d.name, d.rise_and_set);
   }
 
+  function update_overall_rise_and_set(stations) {
+    const combined = combine_rise_and_set(stations.map((d) => d.rise_and_set))
+    combined.overall = true;
+    graphs.rise_and_set.intervals(stations.length, combined);
+  }
+
+  const update_overall_rise_and_set_debounced = _.debounce(update_overall_rise_and_set, 10);
+
   function update_map_location(d) {
     const latlon = latlon_to_plot(d.location)
     world_map.station(d.name, latlon);
@@ -46,12 +56,14 @@ export default function({ locations, track, world_map, graphs, views_container }
 
   stations.forEach(update_rise_and_set);
   stations.forEach(update_map_location);
+  update_overall_rise_and_set_debounced(stations);
 
   stations.forEach((d) => {
     events.on("station-location:" + d.name, (location) => {
       d.location = location;
       update_map_location(d);
       update_rise_and_set(d);
+      update_overall_rise_and_set_debounced(stations);
     });
   });
 
