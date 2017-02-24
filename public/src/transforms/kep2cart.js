@@ -1,5 +1,10 @@
 const { sin, cos, pow, sqrt } = Math;
 
+/**
+ * Given Keplerian elements, it computes the Cartesian position and velocity.
+ * @param  {Object} _ The Keplerian elements
+ * @return {Object} The resulting Cartesian position and velocity
+ */
 export default function kep2cart({a, e, i, ω, Ω, ν, GM}) {
 
   const p = a * (1 - pow(e, 2));

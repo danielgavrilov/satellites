@@ -13,11 +13,17 @@ import { rotate_z } from "./rotations";
 
 const { sin, cos, sqrt, atan2, PI: π } = Math;
 
-export function eci_to_ecef([x, y, z], date) {
-  if (!_.isDate(date)) {
+/**
+ * Given a position vector and a time, it converts the vector from ECI to ECEF.
+ * @param  {Array} [x, y, z]
+ * @param  {Date} time
+ * @return {Array} The resulting vector
+ */
+export function eci_to_ecef([x, y, z], time) {
+  if (!_.isDate(time)) {
     throw new Error("eci_to_ecef() received an invalid time.");
   }
-  const seconds = date_to_j2000_seconds(date);
+  const seconds = date_to_j2000_seconds(time);
   const days = seconds / SECONDS_PER_DAY;
   const Θ = (EARTH_ECI_ANOMALY + EARTH_RADIANS_PER_DAY * days) % (2*π);
   return rotate_z([x, y, z], Θ);

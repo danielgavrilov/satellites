@@ -3,6 +3,13 @@ import { magnitude, subtract, divide, dot } from "../utils/vectors"
 
 const { asin, atan2 } = Math;
 
+/**
+ * Given a station position in lat/long, it returns a function that takes
+ * a vector and computes its azimuth and elevation relative to the station.
+ *
+ * @param  {Object} station_latlon Lat/long in a { λ, φ } format
+ * @return {Object} The resulting azimuth and elevation
+ */
 export default function(station_latlon) {
 
   const { e, n, u } = latlon_to_enu(station_latlon);

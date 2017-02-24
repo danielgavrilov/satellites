@@ -2,6 +2,12 @@ import * as d3 from "d3";
 
 const COLOURS = d3.schemeCategory10;
 
+/**
+ * Given an array of "difference" vectors, it produces 3 arrays: one of only
+ * X vaues, one of only Y values and one of only Z values.
+ * @param  {Array} differences
+ * @return {Array}
+ */
 function unzip(differences) {
   return [0,1,2].map((i) => {
     return differences.map((d) => {

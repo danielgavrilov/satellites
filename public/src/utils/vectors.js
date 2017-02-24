@@ -1,22 +1,49 @@
 import _ from "lodash";
 
+/**
+ * Given a vector, it returns it's magnitude.
+ * @param  {Array} vector
+ * @return {Number}
+ */
 export function magnitude(vector) {
   const sum = _.sumBy(vector, (x) => x * x);
   return Math.sqrt(sum);
 }
 
+/**
+ * Given two vectors, it returns their dot product.
+ * @param  {Array} a First vector
+ * @param  {Array} b Second vector
+ * @return {Number}
+ */
 export function dot(a, b) {
   return _.sum(_.zipWith(a, b, (a, b) => a * b));
 }
 
+/**
+ * Given two vectors, it returns the first subtracted by the second.
+ * If the second parameter is a scalar, then all dimensions of the first vector
+ * are subtracted by the scalar.
+ * @param  {Array} a The first vector
+ * @param  {Array|Number} b The second vector (or could be a scalar)
+ * @return {Array} The resulting vector
+ */
 export function subtract(a, b) {
   if (_.isNumber(b)) {
+    // vector - scalar
     return a.map((x) => x - b);
   } else {
+    // vector - vector
     return _.zipWith(a, b, (x, y) => x - y);
   }
 }
 
+/**
+ * Multiplies two vectors, or multiplies a vector by a scalar.
+ * @param  {Array} a The first vector
+ * @param  {Array|Number} b The second vector or scalar
+ * @return {Array} The resulting vector
+ */
 export function multiply(a, b) {
   if (_.isNumber(b)) {
     // vector × scalar
@@ -37,10 +64,22 @@ export function multiply(a, b) {
   }
 }
 
+/**
+ * Divides a vector by a scalar.
+ * @param  {Array} vec
+ * @param  {Number} scalar
+ * @return {Array}
+ */
 export function divide(vec, scalar) {
   return vec.map((x) => x / scalar);
 }
 
+/**
+ * Calculates the cross product of two vectors.
+ * @param  {Array} a
+ * @param  {Array} b
+ * @return {Array}
+ */
 export function cross(a, b) {
   return [
     (a[1] * b[2]) - (a[2] * b[1]),
