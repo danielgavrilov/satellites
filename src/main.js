@@ -20,7 +20,7 @@ const { r, v } = cartesian;
 
 // =============================================================================
 
-const DAYS = 2;
+const DAYS = 1;
 
 const world_map = draw_map(d3.select("#world-map"));
 
@@ -38,10 +38,10 @@ const rk4_j2_vs_rk4 = _.zipWith(tracks.rk4_j2, tracks.rk4, (a, b) => {
 });
 
 const locations = [
-  { φ: deg_to_rad(30), λ: deg_to_rad(0), h: 0 },
-  { φ: deg_to_rad(-30), λ: deg_to_rad(90), h: 0 },
-  { φ: deg_to_rad(30), λ: deg_to_rad(180), h: 0 },
-  { φ: deg_to_rad(-30), λ: deg_to_rad(270), h: 0 },
+  { φ: deg_to_rad(51.6448), λ: deg_to_rad(-0.3935), h: 0 },
+  { φ: deg_to_rad(-50.7587), λ: deg_to_rad(-70.3140), h: 0 },
+  { φ: deg_to_rad(52.7723), λ: deg_to_rad(140.1880), h: 0 },
+  { φ: deg_to_rad(-33.8571), λ: deg_to_rad(146.5714), h: 0 },
 ]
 
 const graphs = create_graphs({
