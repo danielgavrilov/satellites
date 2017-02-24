@@ -10,6 +10,7 @@ function calc_k(vector, h, GM) {
   const r = magnitude(vector);
   const z = vector[2];
   return vector.map((x, i) => {
+    // in Z calculation, the coefficient is 3, otherwise 1.
     const coef = (i === 2) ? 3 : 1;
     return 0.5 * h*h * (
       -GM * x / pow(r, 3) +

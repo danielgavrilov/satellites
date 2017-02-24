@@ -9,7 +9,7 @@ const { sin, cos, pow, sqrt, atan2 } = Math;
  * @param  {Number} GM
  * @return {Object} The resulting Keplerian elements
  */
-export default function cart2kep({r, v, GM}) {
+export default function cart2kep({ r, v, GM }) {
 
   const h = cross(r, v);
   const h_mag = magnitude(h);
