@@ -19,7 +19,7 @@ function multiFormat(date) {
 
 export default function({ container, extent, width }) {
 
-  const margin = {top: 20, bottom: 0, left: 80, right: 20},
+  const margin = {top: 20, bottom: 0, left: 140, right: 20},
         height = 500;
 
   const svg = container.append("svg")

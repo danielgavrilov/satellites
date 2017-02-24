@@ -55,7 +55,10 @@ world_map
   .track("rk4", track_to_plot(tracks.rk4))
   .track("rk4-j2", track_to_plot(tracks.rk4_j2));
 
-graphs.differences.plot(rk4_j2_vs_rk4);
+graphs.differences.plot(rk4_j2_vs_rk4, {
+  labels: ["Height", "Cross-axis", "Along-axis"],
+  unit: "km"
+});
 
 controller({
   locations,
