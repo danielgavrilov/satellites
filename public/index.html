@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Balls</title>
+    <title>Satellites</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -11,7 +11,7 @@
       <div class="world-map-container">
         <div class="side-note">
           <h2>Ground tracks and ground stations</h2>
-          <p>The plot shows satellite ground tracks projected onto longitude &amp; latitude (not taking altitude into account). It uses an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>.</p>
+          <p>The plot shows satellite ground tracks in longitude &amp; latitude in an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>.</p>
           <p>The ground stations are coloured circles&mdash;you can <strong>drag the circles</strong> to change their location. </p>
           <p><strong>Scroll</strong> to zoom in and out.</p>
         </div>
@@ -32,9 +32,18 @@
       </div>
 
       <div id="graphs">
-        <div class="side-note" style="width: 160px">
-          <h2 style="margin-top: 25px">Rise and set times</h2>
-          <p>The blocks show the time intervals the sattelite is visible from a specific ground station.</p>
+        <div class="side-note" style="width: 160px; position: relative">
+
+          <div style="position: absolute; left: 0; right: 0; top: 25px;">
+            <h2>Rise and set times</h2>
+            <p>The blocks show the time intervals the satellite is visible from a specific ground station.</p>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; top: 155px;">
+            <h2>Orbit differences</h2>
+            <p></p>
+          </div>
+
         </div>
         <div class="content">
 
