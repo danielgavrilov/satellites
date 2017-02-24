@@ -10,7 +10,7 @@ import draw_map from "./plots/world-map";
 import create_graphs from "./plots/graphs";
 import diff_hcl from "./transforms/diff-hcl";
 import { WIDTH } from "./constants";
-import stations_controller from "./controllers/stations";
+import controller from "./controller";
 import { eci_to_all_systems } from "./transforms/coordinates";
 
 import { track_to_plot } from "./transforms/plots";
@@ -30,8 +30,11 @@ const tracks = {
   rk4_j2: propagate_rk4_j2({ r, v, GM, time }, DAYS * 8640, 10).map(eci_to_all_systems)
 };
 
-const rk4_vs_rk4_j2 = _.zipWith(tracks.rk4, tracks.rk4_j2, (a, b) => {
-  return diff_hcl(a.eci, b.eci);
+const rk4_j2_vs_rk4 = _.zipWith(tracks.rk4_j2, tracks.rk4, (a, b) => {
+  return {
+    diff: diff_hcl(a.eci, b.eci),
+    time: a.time
+  }
 });
 
 const locations = [
@@ -47,7 +50,9 @@ const graphs = create_graphs({
   extent: d3.extent(tracks.kep, (d) => d.time)
 });
 
-stations_controller({
+graphs.differences.plot(rk4_j2_vs_rk4);
+
+controller({
   locations,
   world_map,
   graphs,
