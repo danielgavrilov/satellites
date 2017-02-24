@@ -8,7 +8,8 @@ const { asin, atan2 } = Math;
  * a vector and computes its azimuth and elevation relative to the station.
  *
  * @param  {Object} station_latlon Lat/long in a { λ, φ } format
- * @return {Object} The resulting azimuth and elevation
+ * @return {Function} A function that takes an ECEF vector and retunrs
+ *                    resulting azimuth and elevation
  */
 export default function(station_latlon) {
 
