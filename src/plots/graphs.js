@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 
 import rise_and_set_graph from "./rise-and-set";
-import multi_line_graph from "./differences";
+import multi_line_graph from "./multi-line";
 
 var formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
