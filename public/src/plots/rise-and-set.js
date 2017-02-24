@@ -1,5 +1,3 @@
-import * as d3 from "d3";
-
 import { STATION_COLOURS } from "../constants";
 
 const BAR_HEIGHT = 6,

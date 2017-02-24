@@ -9,15 +9,13 @@ import { deg_to_rad } from "./utils/angles";
 import draw_map from "./plots/world-map";
 import create_graphs from "./plots/graphs";
 import diff_hcl from "./transforms/diff-hcl";
-import events from "./events";
-import { WIDTH, MASK_ANGLE } from "./constants";
+import { WIDTH } from "./constants";
 import stations_controller from "./controllers/stations";
-import tracks_controller from "./controllers/tracks";
 import { eci_to_all_systems } from "./transforms/coordinates";
 
 import { track_to_plot } from "./transforms/plots";
 
-const { keplerian, cartesian, GM, time } = data["jason-2"];
+const { cartesian, GM, time } = data["jason-2"];
 const { r, v } = cartesian;
 
 // =============================================================================

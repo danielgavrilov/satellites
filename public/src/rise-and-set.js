@@ -1,6 +1,5 @@
 import station_view from "./transforms/station-view";
 import { group_consecutive } from "./utils/arrays";
-import { deg_to_rad } from "./utils/angles";
 
 export default function rise_and_set(track, station_latlon, mask_angle) {
 

@@ -1,11 +1,9 @@
-import { rad_to_longitude, rad_to_latitude, rad_to_deg } from "../utils/angles";
-
-const π = Math.PI;
+import { rad_to_deg } from "../utils/angles";
 
 export function latlon_to_plot({ λ, φ }) {
   return [
-    rad_to_longitude(λ),
-    rad_to_latitude(φ)
+    rad_to_deg(λ),
+    rad_to_deg(φ)
   ];
 }
 

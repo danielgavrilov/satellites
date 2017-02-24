@@ -1,7 +1,6 @@
-import { normalise_angle } from "../utils/angles";
 import { magnitude, cross, dot, divide } from "../utils/vectors";
 
-const { sin, cos, pow, sqrt, atan2, abs } = Math;
+const { sin, cos, pow, sqrt, atan2 } = Math;
 
 export default function cart2kep({r, v, GM}) {
 

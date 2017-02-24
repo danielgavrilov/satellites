@@ -1,5 +1,3 @@
-import * as d3 from "d3";
-
 import events from "../events";
 import rise_and_set from "../rise-and-set";
 import station_view from "../plots/station-view";
