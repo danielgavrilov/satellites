@@ -1,12 +1,12 @@
-import station_view from "./transforms/station-view";
+import topocentric_generator from "./transforms/topocentric";
 import { group_consecutive } from "./utils/arrays";
 
 export default function rise_and_set(track, station_latlon, mask_angle) {
 
-  const get_azimuth_elevation = station_view(station_latlon);
+  const topocentric = topocentric_generator(station_latlon);
 
   const items = track.map((point) => {
-    const { elevation, azimuth } = get_azimuth_elevation(point.ecef.r);
+    const { elevation, azimuth } = topocentric(point.ecef.r);
     return {
       elevation,
       azimuth,
