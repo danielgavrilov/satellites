@@ -15,7 +15,7 @@ const { sin, cos, sqrt, atan2, PI: π } = Math;
 
 /**
  * Given a position vector and a time, it converts the vector from ECI to ECEF.
- * @param  {Array} [x, y, z]
+ * @param  {Array} [x, y, z] Position vector (in km)
  * @param  {Date} time
  * @return {Array} The resulting vector
  */
@@ -29,6 +29,11 @@ export function eci_to_ecef([x, y, z], time) {
   return rotate_z([x, y, z], Θ);
 }
 
+/**
+ * Converts an ECEF vector to latitude/longitude/height.
+ * @param  {Array} [x, y, z] The ECEF position vector (in km)
+ * @return {Object}
+ */
 export function ecef_to_latlon([x, y, z]) {
   const λ = atan2(y, x);
   const φ = atan2(z, sqrt(x*x + y*y));
@@ -36,6 +41,11 @@ export function ecef_to_latlon([x, y, z]) {
   return { λ, φ, h };
 }
 
+/**
+ * Converts latitude/longitude/height to an ECEF vector.
+ * @param  {Object} {λ, φ, h} Longitude, latitude & height
+ * @return {Array} The ECEF position vector in km
+ */
 export function latlon_to_ecef({ λ, φ, h=0 }) {
 
   const sinφ = sin(φ),
@@ -51,6 +61,11 @@ export function latlon_to_ecef({ λ, φ, h=0 }) {
   return [x, y, z];
 }
 
+/**
+ * Creates an ENU basis at the given latitude/longitude.
+ * @param  {Object} {λ, φ} Longitude & latitude
+ * @return {Object} {e, n, u} The e, n & u vectors.
+ */
 export function latlon_to_enu({ λ, φ }) {
 
   const sinφ = sin(φ),
@@ -79,10 +94,20 @@ export function latlon_to_enu({ λ, φ }) {
   return { e, n, u };
 }
 
+/**
+ * Convenience function that produces an ENU basis from an ECEF vector.
+ * @param  {Array} [x, y, z] The ECEF position vector (in km)
+ * @return {Object} {e, n, u} The e, n & u vectors
+ */
 export function ecef_to_enu([x, y, z]) {
   return latlon_to_enu(ecef_to_latlon([x, y, z]));
 }
 
+/**
+ * Given an ECI position & velocity, it produces HCL basis vectors.
+ * @param  {Object} {r, v} The ECI position & velocity
+ * @return {Object} {h, c, l} The HCL basis vectors
+ */
 export function eci_to_hcl({ r, v }) {
   const rxv = cross(r, v);
   const h = divide(r, magnitude(r));
@@ -91,6 +116,14 @@ export function eci_to_hcl({ r, v }) {
   return { h, c, l };
 }
 
+/**
+ * Given an HCI position & velocity and the reference time, it produces its
+ * equivalent ECEF vector & lat/long/height.
+ * @param  {Array} r    The ECI position vector
+ * @param  {Array} v    The ECI velocity vector
+ * @param  {Date} time  The reference time
+ * @return {Object}
+ */
 export function eci_to_all_systems({ r, v, time }) {
   const r_ecef = eci_to_ecef(r, time);
   const r_latlon = ecef_to_latlon(r_ecef);

@@ -1,5 +1,11 @@
 import _ from "lodash";
 
+/**
+ * Given a calc_k function, it produces an RK4 step function that takes current
+ * state and step size, and produces the next state (after the given step size).
+ * @param  {Function} calc_k
+ * @return {Function}
+ */
 function generate_rk4_step_function(calc_k) {
   return function({ r: x0, v: v0, GM }, h) {
 
@@ -53,15 +59,36 @@ function generate_rk4_step_function(calc_k) {
   }
 }
 
+/**
+ * Given a calc_k function, it produces an RK4 propagator—this is different from
+ * (but uses) the one above as it can produce multiple values at multiple steps.
+ * @param  {Function} calc_k
+ * @return {Function}
+ */
 export default function(calc_k) {
 
   const step = generate_rk4_step_function(calc_k);
 
+  /**
+   * Given the initial conditions, it produces a sequence of predictions using
+   * the Runge-Kutta 4 method.
+   *
+   * @param  {Array} r      Position vector (in km)
+   * @param  {Array} v      Velocity vector (in km/s)
+   * @param  {Date} time    The reference time
+   * @param  {Number} GM    Gravitational constant × mass
+   * @param  {Number} steps Number of steps
+   * @param  {Number} step_size Step size in seconds
+   * @return {Array}        Array of position & velocity predictions
+   */
   return function({ r, v, time, GM }, steps, step_size=10) {
     let predictions = [];
     for (let i = 0; i < steps; i++) {
+      // include the initial conditions in the predictions array
       predictions.push({ r, v, time });
+      // get the next position & velocity
       ({ r, v } = step({ r, v, GM }, step_size));
+      // update the time by the given timestep
       time = new Date(+time + step_size * 1e3);
     }
     return predictions;
