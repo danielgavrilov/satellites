@@ -1,9 +1,9 @@
-import events from "../events";
-import rise_and_set from "../rise-and-set";
-import station_view from "../plots/station-view";
-import { deg_to_rad } from "../utils/angles";
-import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "../transforms/plots";
-import { WIDTH, MASK_ANGLE } from "../constants";
+import events from "./events";
+import rise_and_set from "./rise-and-set";
+import station_view from "./plots/station-view";
+import { deg_to_rad } from "./utils/angles";
+import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "./transforms/plots";
+import { WIDTH, MASK_ANGLE } from "./constants";
 
 export default function({ locations, track, world_map, graphs, views_container }) {
 

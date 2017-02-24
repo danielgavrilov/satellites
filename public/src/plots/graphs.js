@@ -1,5 +1,7 @@
 import * as d3 from "d3";
+
 import rise_and_set_graph from "./rise-and-set";
+import differences_graph from "./differences";
 
 var formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
@@ -55,8 +57,20 @@ export default function({ container, extent, width }) {
     width
   });
 
+  const differences_container = root.append("g")
+    .attr("class", "differences-container")
+    .attr("transform", "translate(0, 130)");
+
+  const differences = differences_graph({
+    container: differences_container,
+    x,
+    width,
+    height: 100
+  })
+
   return {
-    rise_and_set
+    rise_and_set,
+    differences
   };
 }
 
