@@ -2,6 +2,13 @@ import { magnitude, cross, dot, divide } from "../utils/vectors";
 
 const { sin, cos, pow, sqrt, atan2 } = Math;
 
+/**
+ * Converts Cartesian to Keplerian elements.
+ * @param  {Array} r The position vector (km)
+ * @param  {Array} v The velocity vector (km/s)
+ * @param  {Number} GM
+ * @return {Object} The resulting Keplerian elements
+ */
 export default function cart2kep({r, v, GM}) {
 
   const h = cross(r, v);
