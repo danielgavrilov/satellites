@@ -32,7 +32,7 @@ const tracks = {
 
 const rk4_j2_vs_rk4 = _.zipWith(tracks.rk4_j2, tracks.rk4, (a, b) => {
   return {
-    diff: diff_hcl(a.eci, b.eci),
+    vector: diff_hcl(a.eci, b.eci),
     time: a.time
   }
 });

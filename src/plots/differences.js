@@ -7,7 +7,7 @@ function unzip(differences) {
     return differences.map((d) => {
       return {
         time: d.time,
-        value: d.diff[i]
+        value: d.vector[i]
       };
     });
   });
