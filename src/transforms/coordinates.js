@@ -7,7 +7,6 @@ import {
   SECONDS_PER_DAY
 } from "../constants";
 
-import { deg_to_rad } from "../utils/angles";
 import { date_to_j2000_seconds } from "../utils/dates";
 import { magnitude, divide, cross } from "../utils/vectors";
 import { rotate_z } from "./rotations";

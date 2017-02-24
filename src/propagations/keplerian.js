@@ -1,8 +1,6 @@
 import _ from "lodash";
-import moment from "moment";
 
 import cart2kep from "../transforms/cart2kep";
-import { J2000 } from "../constants";
 import { get_gaussian, get_eci_position, get_eci_velocity } from "../transforms/kep2cart";
 import { magnitude } from "../utils/vectors";
 

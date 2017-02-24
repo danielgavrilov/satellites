@@ -1,4 +1,4 @@
-import { latlon_to_enu, latlon_to_ecef, ecef_to_enu } from "./coordinates";
+import { latlon_to_enu, latlon_to_ecef } from "./coordinates";
 import { magnitude, subtract, divide, dot } from "../utils/vectors"
 
 const { asin, atan2 } = Math;

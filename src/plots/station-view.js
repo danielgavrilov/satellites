@@ -36,10 +36,6 @@ export default function({ container, width, height, padding, name, mask_angle })
     `);
   }
 
-  const formatTime = d3.timeFormat("%-I %p"),
-        formatNumber = d3.format(".1f"),
-        formatAngle = function(d) { return formatNumber(d) + "°"; };
-
   const projection = d3.geoProjection(flipped_stereographic)
       .scale(scale)
       .clipAngle(130)

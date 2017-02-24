@@ -155,7 +155,7 @@ export default function(svg) {
       update.enter()
         .append("path")
         .attr("class", "cover")
-        .style("stroke", (d) => STATION_COLOURS[name])
+        .style("stroke", STATION_COLOURS[name])
         .merge(update)
         .attr("d", path);
 
