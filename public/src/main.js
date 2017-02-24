@@ -50,6 +50,11 @@ const graphs = create_graphs({
   extent: d3.extent(tracks.kep, (d) => d.time)
 });
 
+world_map
+  .track("kep", track_to_plot(tracks.kep))
+  .track("rk4", track_to_plot(tracks.rk4))
+  .track("rk4-j2", track_to_plot(tracks.rk4_j2));
+
 graphs.differences.plot(rk4_j2_vs_rk4);
 
 controller({
@@ -59,11 +64,3 @@ controller({
   track: tracks.rk4_j2,
   views_container: d3.select("#station-views").select(".content")
 });
-
-// tracks_controller({ tracks, world_map });
-
-world_map
-  .track("kep", track_to_plot(tracks.kep))
-  .track("rk4", track_to_plot(tracks.rk4))
-  .track("rk4-j2", track_to_plot(tracks.rk4_j2))
-  // .station(0, latlon_to_plot(stations[0]));
