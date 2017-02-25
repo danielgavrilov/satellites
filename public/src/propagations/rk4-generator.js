@@ -1,4 +1,9 @@
-import _ from "lodash";
+function calc(fn, ...args) {
+  return [0,1,2].map((i) => {
+    const fn_args = args.map((vector) => vector[i]);
+    return fn(...fn_args);
+  })
+}
 
 /**
  * Given a calc_k function, it produces an RK4 step function that takes current
@@ -9,20 +14,20 @@ import _ from "lodash";
 function generate_rk4_step_function(calc_k) {
   return function({ r: x0, v: v0, GM }, h) {
 
-    function calc_xk23([x0, v0, k1]) {
+    function calc_xk23(x0, v0, k1) {
       return x0 + 0.5 * h * v0 + k1 / 4;
     }
 
-    function calc_xk4([x0, v0, k3]) {
+    function calc_xk4(x0, v0, k3) {
       return x0 + h * v0 + k3;
     }
 
-    function calc_x1([x0, v0, k1, k2, k3]) {
+    function calc_x1(x0, v0, k1, k2, k3) {
       const P = (k1 + k2 + k3) / 3;
       return x0 + h * v0 + P;
     }
 
-    function calc_v1([v0, k1, k2, k3, k4]) {
+    function calc_v1(v0, k1, k2, k3, k4) {
       const Q = (k1 + 2*k2 + 2*k3 + k4) / 3;
       return v0 + Q / h;
     }
@@ -33,23 +38,23 @@ function generate_rk4_step_function(calc_k) {
 
     // k2
 
-    const xk2 = _.zip(x0, v0, k1).map(calc_xk23);
+    const xk2 = calc(calc_xk23, x0, v0, k1);
     const k2 = calc_k(xk2, h, GM);
 
     // k3
 
-    const xk3 = _.zip(x0, v0, k2).map(calc_xk23);
+    const xk3 = calc(calc_xk23, x0, v0, k2);
     const k3 = calc_k(xk3, h, GM);
 
     // k4
 
-    const xk4 = _.zip(x0, v0, k3).map(calc_xk4);
+    const xk4 = calc(calc_xk4, x0, v0, k3);
     const k4 = calc_k(xk4, h, GM);
 
     // x1 & v1 (outputs)
 
-    const x1 = _.zip(x0, v0, k1, k2, k3).map(calc_x1);
-    const v1 = _.zip(v0,     k1, k2, k3, k4).map(calc_v1);
+    const x1 = calc(calc_x1, x0, v0, k1, k2, k3);
+    const v1 = calc(calc_v1, v0, k1, k2, k3, k4);
 
     return {
       r: x1,
