@@ -55,7 +55,7 @@ export function combine_rise_and_set(rise_and_set_array) {
 
   for (let i = 1; i < rise_and_set.length; i++) {
     const d = rise_and_set[i];
-    if (d.rise <= set) {
+    if (d.rise <= set && d.set > set) {
       set = d.set;
       duration = set - rise;
     } else {
