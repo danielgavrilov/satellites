@@ -6,7 +6,7 @@ import propagate_kep from "./propagations/keplerian";
 import propagate_rk4 from "./propagations/rk4";
 import propagate_rk4_j2 from "./propagations/rk4-j2";
 import { deg_to_rad } from "./utils/angles";
-import draw_map from "./plots/world-map";
+import plot_map from "./plots/world-map";
 import create_graphs from "./plots/graphs";
 import diff_hcl from "./transforms/diff-hcl";
 import { WIDTH } from "./constants";
@@ -22,7 +22,10 @@ const { r, v } = cartesian;
 
 const DAYS = 1;
 
-const world_map = draw_map(d3.select("#world-map"));
+const world_map = plot_map({
+  container: d3.select(".world-map-container").select(".content"),
+  width: WIDTH
+});
 
 const tracks = {
   kep:    propagate_kep({ r, v, GM, time }, DAYS * 8640, 10).map(eci_to_all_systems),

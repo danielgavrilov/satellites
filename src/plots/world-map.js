@@ -3,24 +3,25 @@ import * as d3 from "d3";
 import * as topojson from "topojson";
 
 import events from "../events";
-import { WIDTH, STATION_COLOURS } from "../constants";
+import { STATION_COLOURS } from "../constants";
 import { deg_to_rad } from "../utils/angles";
 
 const π = Math.PI;
 
-export default function(svg) {
+export default function({ container, width }) {
 
   let tracks = {},
       stations = {},
       covers = {};
 
-  const width = WIDTH,
-        height = width / 2;
+  const height = width / 2;
 
-  const root = svg
+  const svg = container.append("svg")
       .attr("width", width)
       .attr("height", height)
-    .append("g");
+      .attr("class", "world-map");
+
+  const root = svg.append("g");
 
   const projection = d3.geoEquirectangular()
       .scale(height / π)
