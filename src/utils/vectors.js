@@ -11,17 +11,19 @@ export function magnitude(vector) {
 }
 
 /**
- * Given two vectors, it returns their dot product.
+ * Given two 3D vectors, it returns their dot product.
  * @param  {Array} a First vector
  * @param  {Array} b Second vector
  * @return {Number}
  */
 export function dot(a, b) {
-  return _.sum(_.zipWith(a, b, (a, b) => a * b));
+  return a[0] * b[0] +
+         a[1] * b[1] +
+         a[2] * b[2];
 }
 
 /**
- * Given two vectors, it returns the first subtracted by the second.
+ * Given two 3D vectors, it returns the first subtracted by the second.
  * If the second parameter is a scalar, then all dimensions of the first vector
  * are subtracted by the scalar.
  * @param  {Array} a The first vector
@@ -34,12 +36,16 @@ export function subtract(a, b) {
     return a.map((x) => x - b);
   } else {
     // vector - vector
-    return _.zipWith(a, b, (x, y) => x - y);
+    return [
+      a[0] - b[0],
+      a[1] - b[1],
+      a[2] - b[2]
+    ];
   }
 }
 
 /**
- * Multiplies two vectors, or multiplies a vector by a scalar.
+ * Multiplies two 3D vectors, or multiplies a vector by a scalar.
  * @param  {Array} a The first vector
  * @param  {Array|Number} b The second vector or scalar
  * @return {Array} The resulting vector
@@ -75,15 +81,15 @@ export function divide(vec, scalar) {
 }
 
 /**
- * Calculates the cross product of two vectors.
+ * Calculates the cross product of two 3D vectors.
  * @param  {Array} a
  * @param  {Array} b
  * @return {Array}
  */
 export function cross(a, b) {
   return [
-    (a[1] * b[2]) - (a[2] * b[1]),
-    (a[2] * b[0]) - (a[0] * b[2]),
-    (a[0] * b[1]) - (a[1] * b[0])
+    a[1] * b[2] - a[2] * b[1],
+    a[2] * b[0] - a[0] * b[2],
+    a[0] * b[1] - a[1] * b[0]
   ];
 }
