@@ -100,7 +100,7 @@ export default function({ container, width }) {
         passesContainer     = root.append("g").attr("class", "passes"),
         stationsContainer   = root.append("g").attr("class", "stations");
 
-  d3.json("data/world-50m.json", function(error, world) {
+  d3.json("maps/world-50m.json", function(error, world) {
     if (error) throw error;
 
     land.datum(topojson.feature(world, world.objects.land))
