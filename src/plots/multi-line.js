@@ -51,7 +51,7 @@ export default function({ container, x, height, width }) {
 
   function noop() {}
 
-  noop.plot = function(vectors, { labels, colours, unit="" }) {
+  noop.plot = function(vectors, { labels, colours=d3.schemeCategory10, unit="" }) {
 
     const lines = unzip(vectors);
 
