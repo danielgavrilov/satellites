@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import events from "./events";
-import rise_and_set, { combine_rise_and_set } from "./rise-and-set";
+import passes, { combine_passes } from "./passes";
 import station_view from "./plots/station-view";
 import { deg_to_rad } from "./utils/angles";
 import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "./transforms/plots";
@@ -27,24 +27,24 @@ export default function({ locations, track, world_map, graphs, views_container }
     }
   }
 
-  function update_rise_and_set(d) {
-    d.rise_and_set = rise_and_set(track, d.location, deg_to_rad(MASK_ANGLE));
-    const relative_tracks = d.rise_and_set.map(({ relative_track }) => {
+  function update_passes(d) {
+    d.passes = passes(track, d.location, deg_to_rad(MASK_ANGLE));
+    const relative_tracks = d.passes.map(({ relative_track }) => {
       return relative_track_to_plot(relative_track)
     });
     d.view.tracks(relative_tracks);
-    const tracks = d.rise_and_set.map(({ track }) => track_to_plot(track));
+    const tracks = d.passes.map(({ track }) => track_to_plot(track));
     world_map.cover(d.name, tracks);
-    graphs.rise_and_set.intervals(d.name, d.rise_and_set);
+    graphs.passes.intervals(d.name, d.passes);
   }
 
-  function update_overall_rise_and_set(stations) {
-    const combined = combine_rise_and_set(stations.map((d) => d.rise_and_set))
+  function update_overall_passes(stations) {
+    const combined = combine_passes(stations.map((d) => d.passes))
     combined.overall = true;
-    graphs.rise_and_set.intervals(stations.length, combined);
+    graphs.passes.intervals(stations.length, combined);
   }
 
-  const update_overall_rise_and_set_debounced = _.debounce(update_overall_rise_and_set, 10);
+  const update_overall_passes_debounced = _.debounce(update_overall_passes, 10);
 
   function update_map_location(d) {
     const latlon = latlon_to_plot(d.location)
@@ -54,16 +54,16 @@ export default function({ locations, track, world_map, graphs, views_container }
 
   const stations = locations.map(populate_from_location)
 
-  stations.forEach(update_rise_and_set);
+  stations.forEach(update_passes);
   stations.forEach(update_map_location);
-  update_overall_rise_and_set_debounced(stations);
+  update_overall_passes_debounced(stations);
 
   stations.forEach((d) => {
     events.on("station-location:" + d.name, (location) => {
       d.location = location;
       update_map_location(d);
-      update_rise_and_set(d);
-      update_overall_rise_and_set_debounced(stations);
+      update_passes(d);
+      update_overall_passes_debounced(stations);
     });
   });
 
