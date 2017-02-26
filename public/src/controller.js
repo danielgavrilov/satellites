@@ -34,7 +34,7 @@ export default function({ locations, track, world_map, graphs, views_container }
     });
     d.view.tracks(relative_tracks);
     const tracks = d.passes.map(({ track }) => track_to_plot(track));
-    world_map.cover(d.name, tracks);
+    world_map.pass(d.name, tracks);
     graphs.passes.intervals(d.name, d.passes);
   }
 

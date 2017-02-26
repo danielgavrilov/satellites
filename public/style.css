@@ -132,7 +132,7 @@ p strong, p b {
   stroke-opacity: 0.75;
 }
 
-.cover {
+.pass {
   fill: none;
   stroke-width: 3px;
   stroke-opacity: 0.55;
