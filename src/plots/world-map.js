@@ -139,29 +139,24 @@ export default function({ container, width }) {
     return noop;
   };
 
-  noop.pass = function(name, data) {
-    if (data == null) {
-      if (passes[name]) {
-        passes[name].remove();
-      }
-    } else {
+  noop.pass_tracks = function(name, { tracks, colour }) {
 
-      if (!passes[name]) {
-        passes[name] = passesContainer.append("g");
-      }
-
-      const update = passes[name].selectAll(".pass")
-        .data(data);
-
-      update.enter()
-        .append("path")
-        .attr("class", "pass")
-        .style("stroke", STATION_COLOURS[name])
-        .merge(update)
-        .attr("d", path);
-
-      update.exit().remove();
+    if (!passes[name]) {
+      passes[name] = passesContainer.append("g");
     }
+
+    const update = passes[name].selectAll(".pass")
+      .data(tracks);
+
+    update.enter()
+      .append("path")
+      .attr("class", "pass")
+      .style("stroke", colour)
+    .merge(update)
+      .attr("d", path);
+
+    update.exit().remove();
+
     return noop;
   };
 
