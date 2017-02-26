@@ -17,4 +17,9 @@ export const MASK_ANGLE = 5; // degrees
 
 export const J2000 = new Date(2000, 0, 1, 12, 0, 0);
 
+export const TRACK_COLOURS = {
+  kep: schemeCategory10[2],
+  rk4: schemeCategory10[1],
+  rk4_j2: schemeCategory10[0]
+};
 export const STATION_COLOURS = schemeCategory10.slice(2); // HEX colours for plots

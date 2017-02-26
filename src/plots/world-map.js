@@ -115,12 +115,14 @@ export default function({ container, width }) {
 
   function noop() {}
 
-  noop.track = function(name, datum) {
+  noop.track = function(name, { track, colour }) {
     if (!tracks[name]) {
       tracks[name] = tracksContainer.append("path")
         .attr("class", "ground-track " + name);
     }
-    tracks[name].datum(datum).attr("d", path);
+    tracks[name].datum(track)
+      .attr("d", path)
+      .style("stroke", colour);
     return noop;
   };
 
