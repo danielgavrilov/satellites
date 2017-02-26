@@ -12,7 +12,7 @@ export default function({ container, width }) {
 
   let tracks = {},
       stations = {},
-      covers = {};
+      passes = {};
 
   const height = width / 2;
 
@@ -54,8 +54,8 @@ export default function({ container, width }) {
     _.values(tracks).forEach((path) => {
       path.style("stroke-width", 1.5 / transform.k);
     });
-    _.values(covers).forEach((cover) => {
-      cover.selectAll(".cover").style("stroke-width", 3 / transform.k);
+    _.values(passes).forEach((pass) => {
+      pass.selectAll(".pass").style("stroke-width", 3 / transform.k);
     });
     _.values(stations).forEach((circle) => {
       circle.attr("r", 4 / Math.log(1 + transform.k))
@@ -97,7 +97,7 @@ export default function({ container, width }) {
   refresh_zoom();
 
   const tracksContainer     = root.append("g").attr("class", "tracks"),
-        coversContainer     = root.append("g").attr("class", "covers"),
+        passesContainer     = root.append("g").attr("class", "passes"),
         stationsContainer   = root.append("g").attr("class", "stations");
 
   d3.json("data/world-50m.json", function(error, world) {
@@ -139,23 +139,23 @@ export default function({ container, width }) {
     return noop;
   };
 
-  noop.cover = function(name, data) {
+  noop.pass = function(name, data) {
     if (data == null) {
-      if (covers[name]) {
-        covers[name].remove();
+      if (passes[name]) {
+        passes[name].remove();
       }
     } else {
 
-      if (!covers[name]) {
-        covers[name] = coversContainer.append("g");
+      if (!passes[name]) {
+        passes[name] = passesContainer.append("g");
       }
 
-      const update = covers[name].selectAll(".cover")
+      const update = passes[name].selectAll(".pass")
         .data(data);
 
       update.enter()
         .append("path")
-        .attr("class", "cover")
+        .attr("class", "pass")
         .style("stroke", STATION_COLOURS[name])
         .merge(update)
         .attr("d", path);
