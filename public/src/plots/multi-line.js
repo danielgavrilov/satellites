@@ -1,8 +1,6 @@
 import * as d3 from "d3";
 
-const DEFAULT_COLOURS = d3.schemeCategory10;
-const LEGEND_ITEM_HEIGHT = 10;
-const LEGEND_ITEM_PADDING = 4;
+import legend from "./legend";
 
 /**
  * Given an array of "difference" vectors, it produces 3 arrays: one of only
@@ -42,8 +40,9 @@ export default function({ container, x, height, width }) {
       .x((d) => x(d.time))
       .y((d) => y(d.value));
 
-  const legend = root.append("g")
-      .attr("class", "legend");
+  const legend_container = root.append("g")
+      .attr("class", "legend")
+      .attr("transform", "translate(-50, 0)");
 
   const unitElem = root.append("g")
       .attr("transform", `translate(-30, ${height/2}) rotate(-90)`)
@@ -52,7 +51,7 @@ export default function({ container, x, height, width }) {
 
   function noop() {}
 
-  noop.plot = function(vectors, { labels=[], colours=DEFAULT_COLOURS, unit="" }) {
+  noop.plot = function(vectors, { labels, colours, unit="" }) {
 
     const lines = unzip(vectors);
 
@@ -75,26 +74,15 @@ export default function({ container, x, height, width }) {
 
     unitElem.text(unit);
 
-    const legend_height = LEGEND_ITEM_HEIGHT * labels.length + LEGEND_ITEM_PADDING + (labels.length - 1);
-
-    legend.attr("transform", `translate(-60, ${height/2 - legend_height/2})`);
-
-    const legend_update = legend.html("").selectAll(".label")
-        .data(labels)
-      .enter().append("g")
-        .attr("transform", (d, i) => `translate(0, ${i * (LEGEND_ITEM_HEIGHT + LEGEND_ITEM_PADDING)})`);
-
-    legend_update.append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", LEGEND_ITEM_HEIGHT)
-        .attr("height", LEGEND_ITEM_HEIGHT)
-        .style("fill", (d, i) => colours[i]);
-
-    legend_update.append("text")
-        .attr("x", -LEGEND_ITEM_PADDING)
-        .attr("y", 9)
-        .text((d) => d);
+    legend({
+      container: legend_container,
+      item_size: 12,
+      padding: 5,
+      orient: "left",
+      height,
+      labels,
+      colours
+    });
 
     return noop;
   };
