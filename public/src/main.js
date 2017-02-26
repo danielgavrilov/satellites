@@ -9,7 +9,7 @@ import { deg_to_rad } from "./utils/angles";
 import plot_map from "./plots/world-map";
 import create_graphs from "./plots/graphs";
 import diff_hcl from "./transforms/diff-hcl";
-import { WIDTH } from "./constants";
+import { WIDTH, TRACK_COLOURS } from "./constants";
 import controller from "./controller";
 import { eci_to_all_systems } from "./transforms/coordinates";
 
@@ -54,9 +54,18 @@ const graphs = create_graphs({
 });
 
 world_map
-  .track("kep", track_to_plot(tracks.kep))
-  .track("rk4", track_to_plot(tracks.rk4))
-  .track("rk4-j2", track_to_plot(tracks.rk4_j2));
+  .track("kep", {
+    track: track_to_plot(tracks.kep),
+    colour: TRACK_COLOURS.kep
+  })
+  .track("rk4", {
+    track: track_to_plot(tracks.rk4),
+    colour: TRACK_COLOURS.rk4
+  })
+  .track("rk4-j2", {
+    track: track_to_plot(tracks.rk4_j2),
+    colour: TRACK_COLOURS.rk4_j2
+  });
 
 graphs.differences.plot(rk4_j2_vs_rk4, {
   labels: ["Height", "Cross-axis", "Along-axis"],
