@@ -1,7 +1,5 @@
 import * as d3 from "d3";
 
-import { STATION_COLOURS } from "../constants";
-
 function flipped_stereographic(λ, φ)  {
   const cosλ = Math.cos(λ),
       cosφ = Math.cos(φ),
@@ -12,7 +10,7 @@ function flipped_stereographic(λ, φ)  {
   ];
 }
 
-export default function({ container, width, height, padding, name, mask_angle }) {
+export default function({ container, width, height, padding, name, colour, mask_angle }) {
 
   const scale = width * .4;
 
@@ -120,7 +118,7 @@ export default function({ container, width, height, padding, name, mask_angle })
     update.enter()
       .append("path")
       .attr("class", "track")
-      .style("stroke", STATION_COLOURS[name])
+      .style("stroke", colour)
     .merge(update)
       .attr("d", path);
 
