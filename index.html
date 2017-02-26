@@ -9,7 +9,13 @@
   <body>
     <div id="container">
 
-      <div class="world-map-container">
+      <div id="header" class="clearfix">
+        <div class="content">
+          <h1>Satellite Orbit Prediction and Ground Station Visibility</h1>
+        </div>
+      </div>
+
+      <div id="world-map" class="clearfix">
         <div class="side-note">
           <h2>Ground tracks and ground stations</h2>
           <p>The plot shows satellite ground tracks in longitude &amp; latitude in an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>.</p>
@@ -17,11 +23,11 @@
           <p><strong>Scroll</strong> to zoom in and out.</p>
         </div>
         <div class="content">
-          <svg id="world-map" class="world-map" width="840" height="420"></svg>
+
         </div>
       </div>
 
-      <div id="station-views">
+      <div id="station-views" class="clearfix">
         <div class="side-note">
           <h2>Ground station views</h2>
           <p>The four plots show the position of the satellite over time under an <a href="https://en.wikipedia.org/wiki/North_east_down">ENU frame</a>, relative to the specific ground station. They use a <a href="https://en.wikipedia.org/wiki/Stereographic_projection">stereographic projection</a>, showing azimuth (clockwise angle) and elevation.</p>
@@ -32,7 +38,7 @@
         </div>
       </div>
 
-      <div id="graphs">
+      <div id="graphs" class="clearfix">
         <div class="side-note" style="width: 160px; position: relative">
 
           <div style="position: absolute; left: 0; right: 0; top: 25px;">
@@ -51,8 +57,10 @@
         </div>
       </div>
 
-      <div id="footer">
-        <p>Built for <strong>CEGE301M Space Systems</strong> at UCL by Daniel Gavrilov. See the <a href="https://github.com/danielgavrilov/satellites">source</a>.</p>
+      <div id="footer" class="clearfix">
+        <div class="content">
+          <p>Built for <strong>CEGE301M Space Systems</strong> at UCL by Daniel Gavrilov. See the <a href="https://github.com/danielgavrilov/satellites">source</a>.</p>
+        </div>
       </div>
 
     </div>
