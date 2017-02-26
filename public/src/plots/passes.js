@@ -1,5 +1,5 @@
 const BAR_HEIGHT = 10,
-      COVERAGE_BAR_HEIGHT = 20,
+      COVERAGE_BAR_HEIGHT = 15,
       COVERAGE_COLOUR = "#e7ba52",
       PADDING = 10,
       ITEM_HEIGHT = BAR_HEIGHT + PADDING;
@@ -39,7 +39,7 @@ export default function({ container, x, width }) {
       .attr("transform", "translate(-10, 0)")
       .text(label);
     if (coverage) {
-      coverage.attr("transform", `translate(0, ${(count + 1) * ITEM_HEIGHT})`);
+      coverage.attr("transform", `translate(0, ${(count + 1) * ITEM_HEIGHT + 5})`);
     }
     return element;
   }
