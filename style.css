@@ -251,7 +251,7 @@ p strong, p b {
 
 /* ========================================================================== */
 
-.rise-and-set .ground-station-label {
+.passes .ground-station-label {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
@@ -260,7 +260,7 @@ p strong, p b {
   dominant-baseline: middle;
 }
 
-.rise-and-set-guide {
+.passes-guide {
   stroke: rgba(0,0,0,.07);
 }
 

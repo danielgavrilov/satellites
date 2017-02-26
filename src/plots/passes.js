@@ -10,10 +10,10 @@ export default function({ container, x, width }) {
 
   function append(container, name, label) {
     const element = container.append("g")
-      .attr("class", "rise-and-set")
+      .attr("class", "passes")
       .attr("transform", `translate(0, ${name * (BAR_HEIGHT + PADDING)})`);
     element.append("line")
-      .attr("class", "rise-and-set-guide")
+      .attr("class", "passes-guide")
       .attr("stroke-width", BAR_HEIGHT)
       .attr("x1", 0)
       .attr("y1", MID_HEIGHT)

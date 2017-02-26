@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-import rise_and_set_graph from "./rise-and-set";
+import passes_graph from "./passes";
 import multi_line_graph from "./multi-line";
 
 var formatMillisecond = d3.timeFormat(".%L"),
@@ -47,12 +47,12 @@ export default function({ container, extent, width }) {
   axisElem.selectAll(".tick")
       .classed("day", (d) => +d3.timeDay(d) == +d);
 
-  const rise_and_set_container = root.append("g")
-    .attr("class", "rise-and-set-container")
+  const passes_container = root.append("g")
+    .attr("class", "passes-container")
     .attr("transform", "translate(0, 10)");
 
-  const rise_and_set = rise_and_set_graph({
-    container: rise_and_set_container,
+  const passes = passes_graph({
+    container: passes_container,
     x,
     width
   });
@@ -69,7 +69,7 @@ export default function({ container, extent, width }) {
   });
 
   return {
-    rise_and_set,
+    passes,
     differences
   };
 }
