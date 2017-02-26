@@ -23,7 +23,7 @@ const { r, v } = cartesian;
 const DAYS = 1;
 
 const world_map = plot_map({
-  container: d3.select(".world-map-container").select(".content"),
+  container: d3.select("#world-map").select(".content"),
   width: WIDTH
 });
 
