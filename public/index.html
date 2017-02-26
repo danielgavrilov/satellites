@@ -12,6 +12,27 @@
       <div id="header" class="clearfix">
         <div class="content">
           <h1>Satellite Orbit Prediction and Ground Station Visibility</h1>
+          <div class="left-column">
+            <p>
+              This is was built for a coursework for the Aerospace Engineering minor at UCL. Given the position and velocity of a satellite, we were required to create a program that predicts its trajectory using three different methods:
+            </p>
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/Kepler_orbit">Keplerian orbit</a> propagation</li>
+              <li>Integration with <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge&ndash;Kutta 4</a> (RK4)</li>
+              <li>Integration with RK4 with <a href="https://en.wikipedia.org/wiki/Orbital_perturbation_analysis_(spacecraft)#The_effect_of_the_Earth_flattening">oblateness correction</a></li>
+            </ul>
+          </div>
+          <div class="right-column">
+            <p>
+              We were also required to design a ground tracking station network of 4 stations around the world, maximising pass times.
+            </p>
+            <p>
+              The goal for the visualisation was to <strong>show the differences</strong> between the results of these three methods and <strong>show the views</strong> of the ground stations.
+            </p>
+            <p>
+              Currently, it shows the trajectory of <a href="https://en.wikipedia.org/wiki/Ocean_Surface_Topography_Mission">JASON-2</a> over the course of 24 hours, but I'm hoping to make the initial conditions customisable to show other satellites.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -19,6 +40,7 @@
         <div class="side-note">
           <h2>Ground tracks and ground stations</h2>
           <p>The plot shows satellite ground tracks in longitude &amp; latitude in an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>.</p>
+          <p>The coloured tracks are parts of the trajectory where the satellite is visible from a ground station.</p>
           <p>The ground stations are coloured circles&mdash;you can <strong>drag the circles</strong> to change their location. </p>
           <p><strong>Scroll</strong> to zoom in and out.</p>
         </div>
@@ -30,7 +52,7 @@
       <div id="station-views" class="clearfix">
         <div class="side-note">
           <h2>Ground station views</h2>
-          <p>The four plots show the position of the satellite over time under an <a href="https://en.wikipedia.org/wiki/North_east_down">ENU frame</a>, relative to the specific ground station. They use a <a href="https://en.wikipedia.org/wiki/Stereographic_projection">stereographic projection</a>, showing azimuth (clockwise angle) and elevation.</p>
+          <p>The four plots show the trajectory of the satellite in azimuth and elevation relative to a ground station. They use a <a href="https://en.wikipedia.org/wiki/Stereographic_projection">stereographic projection</a> (which is like facing South and looking straight up in the sky).</p>
           <p>The area hidden by the mask angle is shaded in gray&mdash;the <strong>mask angle</strong> is marked with a subtle, dashed line.</p>
         </div>
         <div class="content">
@@ -39,15 +61,15 @@
       </div>
 
       <div id="graphs" class="clearfix">
-        <div class="side-note" style="width: 160px; position: relative">
+        <div class="side-note" style="position: relative">
 
-          <div style="position: absolute; left: 0; right: 0; top: 25px;">
+          <div style="position: absolute; left: 0; right: 70px; top: 25px;">
             <h2>Rise and set times</h2>
-            <p>The blocks show the time intervals the satellite is visible from a specific ground station.</p>
+            <p>The blocks show the time intervals the satellite is in line of sight (above the mask angle) from a specific ground station.</p>
           </div>
 
-          <div style="position: absolute; left: 0; right: 0; top: 155px;">
-            <h2>Orbit differences</h2>
+          <div style="position: absolute; left: 0; right: 110px; top: 155px;">
+            <h2>RK4 with and without oblateness differences</h2>
             <p></p>
           </div>
 

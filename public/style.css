@@ -17,7 +17,7 @@ html {
 body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 62.5%;
-  line-height: 1.4;
+  line-height: 1.45;
   padding: 1em;
   margin: 0;
 }
@@ -27,12 +27,12 @@ svg {
 }
 
 .content {
-  margin-left: 28em;
+  margin-left: 30em;
   width: 84em;
 }
 
 .side-note {
-  width: 25em;
+  width: 27em;
   float: left;
 }
 
@@ -80,9 +80,14 @@ p strong, p b {
   margin-bottom: 4em;
 }
 
-#header .two-column {
-  column-count: 2;
-  column-gap: 3em;
+#header .left-column {
+  float: left;
+  width: 48%;
+}
+
+#header .right-column {
+  float: right;
+  width: 48%;
 }
 
 #header p,
