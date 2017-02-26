@@ -126,11 +126,11 @@ export function eci_to_hcl({ r, v }) {
  */
 export function eci_to_all_systems({ r, v, time }) {
   const r_ecef = eci_to_ecef(r, time);
-  const r_latlon = ecef_to_latlon(r_ecef);
+  const latlon = ecef_to_latlon(r_ecef);
   return {
     eci: { r, v },
     ecef: { r: r_ecef },
-    latlon: r_latlon,
+    latlon,
     time
   };
 }
