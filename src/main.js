@@ -2,18 +2,23 @@ import _ from "lodash";
 import * as d3 from "d3";
 
 import data from "./data";
+import { WIDTH, TRACK_COLOURS } from "./constants";
+
 import propagate_kep from "./propagations/keplerian";
 import propagate_rk4 from "./propagations/rk4";
 import propagate_rk4_j2 from "./propagations/rk4-j2";
-import { deg_to_rad } from "./utils/angles";
-import plot_map from "./plots/world-map";
-import create_graphs from "./plots/graphs";
-import diff_hcl from "./transforms/diff-hcl";
-import { WIDTH, TRACK_COLOURS } from "./constants";
-import controller from "./controller";
-import { eci_to_all_systems } from "./transforms/coordinates";
 
+import plot_map from "./plots/world-map";
+import plot_graphs from "./plots/graphs";
+import plot_passes from "./plots/passes";
+import plot_lines from "./plots/multi-line";
+
+import { deg_to_rad } from "./utils/angles";
+import { unzip } from "./utils/arrays";
+import diff_hcl from "./transforms/diff-hcl";
+import { eci_to_all_systems } from "./transforms/coordinates";
 import { track_to_plot } from "./transforms/plots";
+import controller from "./controller";
 
 const { cartesian, GM, time } = data["jason-2"];
 const { r, v } = cartesian;
@@ -47,10 +52,23 @@ const locations = [
   { φ: deg_to_rad(-33.8571), λ: deg_to_rad(146.5714), h: 0 },
 ]
 
-const graphs = create_graphs({
-  container: d3.select("#graphs").select(".content"),
+const graphs = plot_graphs({
+  container: d3.select("#axis").select(".content"),
+  height_container: d3.select("#graphs"),
   width: WIDTH,
   extent: d3.extent(tracks.kep, (d) => d.time)
+});
+
+const passes_graph = graphs.append(plot_passes, {
+  container: d3.select("#passes").select(".content"),
+  width: WIDTH,
+  height: 100
+});
+
+const rk4_j2_vs_rk4_graph = graphs.append(plot_lines, {
+  container: d3.select("#rk4_j2-vs-rk4").select(".content"),
+  width: WIDTH,
+  height: 100
 });
 
 world_map
@@ -67,7 +85,7 @@ world_map
     colour: TRACK_COLOURS.rk4_j2
   });
 
-graphs.differences.plot(rk4_j2_vs_rk4, {
+rk4_j2_vs_rk4_graph.plot(unzip(rk4_j2_vs_rk4), {
   labels: ["Height", "Cross-axis", "Along-axis"],
   unit: "km"
 });
@@ -75,7 +93,7 @@ graphs.differences.plot(rk4_j2_vs_rk4, {
 controller({
   locations,
   world_map,
-  graphs,
+  passes_graph,
   track: tracks.rk4_j2,
   views_container: d3.select("#station-views").select(".content")
 });

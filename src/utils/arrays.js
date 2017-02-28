@@ -1,5 +1,23 @@
-const TAKE = 1,
-      LEAVE = 0;
+import _ from "lodash";
+
+/**
+ * Given an array of "difference" vectors, it produces 3 arrays: one of only
+ * X vaues, one of only Y values and one of only Z values.
+ * @param  {Array} vectors
+ * @return {Array}
+ */
+export function unzip(vectors) {
+  if (vectors.length < 1) return vectors;
+  const dimensions = vectors[0].vector.length;
+  return _.range(dimensions).map((i) => {
+    return vectors.map((d) => {
+      return {
+        time: d.time,
+        value: d.vector[i]
+      };
+    });
+  });
+}
 
 /**
  * Groups consecutive elements for which the predicate evaluates to true and
@@ -17,6 +35,10 @@ const TAKE = 1,
  * @param  {Function} predicate
  * @return {Array}
  */
+
+const TAKE = 1,
+      LEAVE = 0;
+
 export function group_consecutive(array, predicate) {
 
   let state = LEAVE,

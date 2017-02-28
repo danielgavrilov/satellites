@@ -240,6 +240,17 @@ p strong, p b {
 
 /* ========================================================================== */
 
+#axis {
+  height: 3em;
+  overflow: visible;
+}
+
+#axis .content {
+  position: absolute;
+  z-index: -1;
+}
+
+
 #graphs {
   margin-top: 2.5em;
 }
@@ -270,6 +281,10 @@ p strong, p b {
 #graphs .axis .day text {
   fill: #555;
   font-weight: bold;
+}
+
+.graph {
+  margin-bottom: 3em;
 }
 
 /* ========================================================================== */

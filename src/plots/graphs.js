@@ -1,7 +1,5 @@
 import * as d3 from "d3";
-
-import passes_graph from "./passes";
-import multi_line_graph from "./multi-line";
+import _ from "lodash";
 
 var formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
@@ -17,18 +15,16 @@ function multiFormat(date) {
       : formatDay)(date);
 }
 
-export default function({ container, extent, width }) {
+export default function({ container, height_container, extent, width }) {
 
-  const margin = {top: 20, bottom: 0, left: 140, right: 20},
-        height = 500;
+  let height = 500;
 
   const svg = container.append("svg")
-      .attr("width", width + margin.left)
-      .attr("height", height)
-      .style("margin-left", -margin.left + "px");
+      .attr("width", width)
+      .attr("height", height);
 
   const root = svg.append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      .attr("transform", `translate(0, 20)`);
 
   const x = d3.scaleTime()
       .domain(extent)
@@ -47,31 +43,24 @@ export default function({ container, extent, width }) {
   axisElem.selectAll(".tick")
       .classed("day", (d) => +d3.timeDay(d) == +d);
 
-  const passes_container = root.append("g")
-    .attr("class", "passes-container")
-    .attr("transform", "translate(0, 10)");
+  function adjust_height() {
+    height = height_container.property("offsetHeight");
+    svg.attr("height", height);
+    axis.tickSize(-height)(axisElem);
+  }
 
-  const passes = passes_graph({
-    container: passes_container,
-    x,
-    width
-  });
+  const adjust_height_debounced = _.debounce(adjust_height, 10);
 
-  const differences_container = root.append("g")
-    .attr("class", "differences-container")
-    .attr("transform", "translate(0, 130)");
+  function noop() {}
 
-  const differences = multi_line_graph({
-    container: differences_container,
-    x,
-    width,
-    height: 100
-  });
-
-  return {
-    passes,
-    differences
+  noop.append = function(graph, options) {
+    const result = graph({ x, ...options });
+    adjust_height_debounced();
+    return result;
   };
+
+  return noop;
+
 }
 
 /*
