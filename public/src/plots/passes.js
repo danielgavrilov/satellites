@@ -14,15 +14,27 @@ function count_keys(object) {
   return total;
 }
 
-export default function({ container, x, width }) {
+export default function({ container, x, width, height }) {
+
+  const overflow = { left: 120, right: 0 };
+
+  const svg = container.append("svg")
+      .attr("width", width + overflow.left + overflow.right)
+      .attr("height", height)
+      .attr("class", "multi-line-graph")
+      .style("margin-left", -overflow.left + "px")
+      .style("margin-right", -overflow.right + "px");
+
+  const root = svg.append("g")
+      .attr("transform", `translate(${overflow.left}, 0)`);
 
   let stations = {};
 
-  const coverage = append(container, "Coverage", COVERAGE_BAR_HEIGHT);
+  const coverage = append(root, "Coverage", COVERAGE_BAR_HEIGHT);
 
-  function append(container, label, bar_height=BAR_HEIGHT) {
+  function append(root, label, bar_height=BAR_HEIGHT) {
     const count = count_keys(stations);
-    const element = container.append("g")
+    const element = root.append("g")
       .attr("class", "passes")
       .attr("transform", `translate(0, ${count * ITEM_HEIGHT})`);
     element.append("line")
@@ -46,9 +58,9 @@ export default function({ container, x, width }) {
 
   function noop() {}
 
-  function update_pass(container, { passes, colour }, bar_height=BAR_HEIGHT) {
+  function update_pass(root, { passes, colour }, bar_height=BAR_HEIGHT) {
 
-    const update = container.selectAll(".pass")
+    const update = root.selectAll(".pass")
       .data(passes);
 
     update.enter().append("rect")
@@ -66,7 +78,7 @@ export default function({ container, x, width }) {
   noop.passes = function(name, x) {
     if (!stations[name]) {
       const label = "Station " + name;
-      stations[name] = append(container, label);
+      stations[name] = append(root, label);
     }
     update_pass(stations[name], x);
     return noop;

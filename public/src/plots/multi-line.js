@@ -2,27 +2,19 @@ import * as d3 from "d3";
 
 import legend from "./legend";
 
-/**
- * Given an array of "difference" vectors, it produces 3 arrays: one of only
- * X vaues, one of only Y values and one of only Z values.
- * @param  {Array} vectors
- * @return {Array}
- */
-function unzip(vectors) {
-  return [0,1,2].map((i) => {
-    return vectors.map((d) => {
-      return {
-        time: d.time,
-        value: d.vector[i]
-      };
-    });
-  });
-}
+export default function({ container, x, width, height }) {
 
-export default function({ container, x, height, width }) {
+  const overflow = { left: 160, right: 0 };
 
-  const root = container.append("g")
-      .attr("class", "multi-line-graph");
+  const svg = container.append("svg")
+      .attr("width", width + overflow.left + overflow.right)
+      .attr("height", height)
+      .attr("class", "multi-line-graph")
+      .style("margin-left", -overflow.left + "px")
+      .style("margin-right", -overflow.right + "px");
+
+  const root = svg.append("g")
+      .attr("transform", `translate(${overflow.left}, 0)`);
 
   const y = d3.scaleLinear()
       .range([height, 0]);
@@ -51,9 +43,7 @@ export default function({ container, x, height, width }) {
 
   function noop() {}
 
-  noop.plot = function(vectors, { labels, colours=d3.schemeCategory10, unit="" }) {
-
-    const lines = unzip(vectors);
+  noop.plot = function(lines, { labels, colours=d3.schemeCategory10, unit="" }) {
 
     y.domain([
       d3.min(lines, (c) => { return d3.min(c, (d) => d.value); }),

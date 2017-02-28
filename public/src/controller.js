@@ -7,7 +7,13 @@ import { deg_to_rad } from "./utils/angles";
 import { relative_track_to_plot, track_to_plot, latlon_to_plot } from "./transforms/plots";
 import { WIDTH, MASK_ANGLE, STATION_COLOURS } from "./constants";
 
-export default function({ locations, track, world_map, graphs, views_container }) {
+export default function({
+  locations,
+  track,
+  world_map,
+  passes_graph,
+  views_container
+}) {
 
   const station_view_padding = 10;
   const station_view_width = (WIDTH - station_view_padding * (locations.length - 1)) / locations.length;
@@ -46,7 +52,7 @@ export default function({ locations, track, world_map, graphs, views_container }
       colour: d.colour
     });
 
-    graphs.passes.passes(d.name, {
+    passes_graph.passes(d.name, {
       passes: d.passes,
       colour: d.colour
     });
@@ -54,7 +60,7 @@ export default function({ locations, track, world_map, graphs, views_container }
 
   function update_coverage(stations) {
     const combined = combine_passes(stations.map((d) => d.passes))
-    graphs.passes.coverage(combined);
+    passes_graph.coverage(combined);
   }
 
   const update_coverage_debounced = _.debounce(update_coverage, 10);
