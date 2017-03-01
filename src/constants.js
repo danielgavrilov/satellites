@@ -6,6 +6,8 @@ export const WIDTH = 840; // poxels
 
 export const SECONDS_PER_DAY = 60 * 60 * 24;
 
+export const GM = 398600.4415; // km^3/s^2
+
 export const EARTH_RADIUS_EQUATORIAL = 6378.137; // km
 export const EARTH_RADIUS_POLAR = 6356.752; // km
 export const EARTH_RADIUS_AVERAGE = (EARTH_RADIUS_EQUATORIAL + EARTH_RADIUS_POLAR) / 2; // km
