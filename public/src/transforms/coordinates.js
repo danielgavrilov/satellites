@@ -4,9 +4,11 @@ import {
   EARTH_RADIUS_AVERAGE,
   EARTH_ECI_ANOMALY,
   EARTH_RADIANS_PER_DAY,
-  SECONDS_PER_DAY
+  SECONDS_PER_DAY,
+  GM
 } from "../constants";
 
+import cart2kep from "./cart2kep";
 import { date_to_j2000_seconds } from "../utils/dates";
 import { magnitude, divide, cross } from "../utils/vectors";
 import { rotate_z } from "./rotations";
@@ -127,10 +129,12 @@ export function eci_to_hcl({ r, v }) {
 export function eci_to_all_systems({ r, v, time }) {
   const r_ecef = eci_to_ecef(r, time);
   const latlon = ecef_to_latlon(r_ecef);
+  const kep = cart2kep({ r, v, GM });
   return {
     eci: { r, v },
     ecef: { r: r_ecef },
     latlon,
+    kep,
     time
   };
 }

@@ -13,7 +13,7 @@ import plot_graphs from "./plots/graphs";
 import plot_passes from "./plots/passes";
 import plot_lines from "./plots/multi-line";
 
-import { deg_to_rad } from "./utils/angles";
+import { deg_to_rad, rad_to_deg, normalise_angle } from "./utils/angles";
 import { unzip } from "./utils/arrays";
 import diff_hcl from "./transforms/diff-hcl";
 import { eci_to_all_systems } from "./transforms/coordinates";
@@ -38,12 +38,19 @@ const tracks = {
   rk4_j2: propagate_rk4_j2({ r, v, GM, time }, DAYS * 8640, 10).map(eci_to_all_systems)
 };
 
-const rk4_j2_vs_rk4 = _.zipWith(tracks.rk4_j2, tracks.rk4, (a, b) => {
-  return {
-    vector: diff_hcl(a.eci, b.eci),
-    time: a.time
-  }
-});
+world_map
+  .track("kep", {
+    track: track_to_plot(tracks.kep),
+    colour: TRACK_COLOURS.kep
+  })
+  .track("rk4", {
+    track: track_to_plot(tracks.rk4),
+    colour: TRACK_COLOURS.rk4
+  })
+  .track("rk4-j2", {
+    track: track_to_plot(tracks.rk4_j2),
+    colour: TRACK_COLOURS.rk4_j2
+  });
 
 const locations = [
   { φ: deg_to_rad(51.6448), λ: deg_to_rad(-0.3935), h: 0 },
@@ -65,30 +72,58 @@ const passes_graph = graphs.append(plot_passes, {
   height: 100
 });
 
-const rk4_j2_vs_rk4_graph = graphs.append(plot_lines, {
+const rk4_j2_vs_rk4 = _.zipWith(tracks.rk4_j2, tracks.rk4, (a, b) => {
+  return {
+    vector: diff_hcl(a.eci, b.eci),
+    time: a.time
+  }
+});
+
+graphs.append(plot_lines, {
   container: d3.select("#rk4_j2-vs-rk4").select(".content"),
   width: WIDTH,
   height: 100
-});
-
-world_map
-  .track("kep", {
-    track: track_to_plot(tracks.kep),
-    colour: TRACK_COLOURS.kep
-  })
-  .track("rk4", {
-    track: track_to_plot(tracks.rk4),
-    colour: TRACK_COLOURS.rk4
-  })
-  .track("rk4-j2", {
-    track: track_to_plot(tracks.rk4_j2),
-    colour: TRACK_COLOURS.rk4_j2
-  });
-
-rk4_j2_vs_rk4_graph.plot(unzip(rk4_j2_vs_rk4), {
+}).plot(unzip(rk4_j2_vs_rk4), {
   labels: ["Height", "Cross-axis", "Along-axis"],
   unit: "km"
 });
+
+
+const tracks_order = ["kep", "rk4", "rk4_j2"];
+const tracks_colours = tracks_order.map((key) => TRACK_COLOURS[key]);
+const tracks_ordered = tracks_order.map((key) => tracks[key]);
+const tracks_labels = ["Keplerian", "RK4", "RK4-J2"];
+
+function map_keplerian(key, transform=_.identity) {
+  return function(track) {
+    return track.map(({ time, kep }) => {
+      return {
+        time,
+        value: transform(kep[key])
+      };
+    });
+  }
+}
+
+function graph_keplerian(key, unit) {
+  const transform = unit === "degrees" ? (d) => rad_to_deg(normalise_angle(d)) : _.identity;
+  return graphs.append(plot_lines, {
+    container: d3.select("#keplerian-" + key).select(".content"),
+    width: WIDTH,
+    height: 40
+  }).plot(tracks_ordered.map(map_keplerian(key, transform)), {
+    labels: tracks_labels,
+    colours: tracks_colours,
+    unit
+  });
+}
+
+graph_keplerian("a", "km");
+graph_keplerian("e");
+graph_keplerian("i", "degrees");
+graph_keplerian("ω", "degrees");
+graph_keplerian("Ω", "degrees");
+graph_keplerian("ν", "degrees");
 
 controller({
   locations,

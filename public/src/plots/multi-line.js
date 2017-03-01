@@ -4,23 +4,27 @@ import legend from "./legend";
 
 export default function({ container, x, width, height }) {
 
-  const overflow = { left: 160, right: 0 };
+  const overflow = { top: 5, bottom: 5, left: 160, right: 10 };
 
   const svg = container.append("svg")
       .attr("width", width + overflow.left + overflow.right)
-      .attr("height", height)
+      .attr("height", height + overflow.top + overflow.bottom)
       .attr("class", "multi-line-graph")
+      .style("margin-top", -overflow.top + "px")
+      .style("margin-bottom", -overflow.bottom + "px")
       .style("margin-left", -overflow.left + "px")
       .style("margin-right", -overflow.right + "px");
 
   const root = svg.append("g")
-      .attr("transform", `translate(${overflow.left}, 0)`);
+      .attr("transform", `translate(${overflow.left}, ${overflow.top})`);
 
   const y = d3.scaleLinear()
       .range([height, 0]);
 
+  const ticks = Math.ceil(height / 15);
+
   const yAxis = d3.axisLeft(y)
-      .ticks(5)
+      .ticks(ticks)
       .tickPadding(10)
       .tickSize(-width);
 
@@ -34,10 +38,10 @@ export default function({ container, x, width, height }) {
 
   const legend_container = root.append("g")
       .attr("class", "legend")
-      .attr("transform", "translate(-50, 0)");
+      .attr("transform", "translate(-60, 0)");
 
   const unitElem = root.append("g")
-      .attr("transform", `translate(-30, ${height/2}) rotate(-90)`)
+      .attr("transform", `translate(-45, ${height/2}) rotate(-90)`)
     .append("text")
       .attr("class", "unit");
 
@@ -66,7 +70,7 @@ export default function({ container, x, width, height }) {
 
     legend({
       container: legend_container,
-      item_size: 12,
+      item_size: 11,
       padding: 5,
       orient: "left",
       height,
