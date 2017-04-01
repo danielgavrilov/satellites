@@ -145,15 +145,15 @@ p strong, p b {
 }
 
 .ground-track.kep {
-  stroke-opacity: 0.1;
+  stroke-opacity: 0.2;
 }
 
 .ground-track.rk4 {
-  stroke-opacity: 0.1;
+  stroke-opacity: 0.2;
 }
 
 .ground-track.rk4-j2 {
-  stroke-opacity: 0.35;
+  stroke-opacity: 0.4;
 }
 
 .world-map {
