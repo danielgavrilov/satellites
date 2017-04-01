@@ -6,7 +6,7 @@ export default function({ container, height, labels, item_size, padding, orient=
 
   const legend = container.append("g");
 
-  const legend_height = item_size * labels.length + padding + (labels.length - 1);
+  const legend_height = item_size * labels.length + padding * (labels.length - 1);
 
   legend.attr("transform", `translate(0, ${height/2 - legend_height/2})`);
 
@@ -24,8 +24,9 @@ export default function({ container, height, labels, item_size, padding, orient=
 
   legend_update.append("text")
       .attr("x", (left ? -1 : 1) * (padding + item_size))
-      .attr("y", 9)
+      .attr("y", item_size - 2)
       .style("font-size", item_size + "px")
+      .style("text-anchor", left ? "end" : "start")
       .text((d) => d);
 
   return legend;
