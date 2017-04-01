@@ -12,6 +12,7 @@ import plot_map from "./plots/world-map";
 import plot_graphs from "./plots/graphs";
 import plot_passes from "./plots/passes";
 import plot_lines from "./plots/multi-line";
+import plot_legend from "./plots/legend";
 
 import { deg_to_rad, rad_to_deg, normalise_angle } from "./utils/angles";
 import { unzip } from "./utils/arrays";
@@ -124,6 +125,20 @@ graph_keplerian("i", "degrees");
 graph_keplerian("ω", "degrees");
 graph_keplerian("Ω", "degrees");
 graph_keplerian("ν", "degrees");
+
+plot_legend({
+  container: d3.select("#ground-tracks-legend").append("g").attr("transform", "translate(15, 0)"),
+  item_size: 13,
+  padding: 6,
+  orient: "right",
+  labels: tracks_labels,
+  colours: [
+    "rgba(44, 160, 44, .25)",
+    "rgba(255, 127, 14, .25)",
+    "rgba(31, 119, 180, .4)"
+  ],
+  height: 60
+});
 
 controller({
   locations,
