@@ -120,7 +120,7 @@ export default function propagate_kepler({ r, v, time, GM }, steps, step_size=10
   const intervals = _.range(
     +time,                           // multiplying by 1e3 (1000) to convert to
     +time + steps * step_size * 1e3, // milliseconds, as JavaScript dates work
-    step_size * 1e3                  // work milliseconds
+    step_size * 1e3                  // with milliseconds
   ).map(ms => new Date(ms));
 
   return intervals.map((time) => {
